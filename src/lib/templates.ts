@@ -2,6 +2,9 @@ import type { ComponentType } from "react";
 import { defaultPortfolioData as darkStarterDefaultData } from "@/templates/dark-starter/defaultData";
 import { darkStarterMetadata } from "@/templates/dark-starter/metadata";
 import { DarkStarterTemplate } from "@/templates/dark-starter/Template";
+import { defaultPortfolioData as lightVCardDefaultData } from "@/templates/light-vcard/defaultData";
+import { lightVCardMetadata } from "@/templates/light-vcard/metadata";
+import { LightVCardTemplate } from "@/templates/light-vcard/Template";
 import { defaultPortfolioData as profileCardDefaultData } from "@/templates/profile-card/defaultData";
 import { profileCardMetadata } from "@/templates/profile-card/metadata";
 import { ProfileCardTemplate } from "@/templates/profile-card/Template";
@@ -42,6 +45,12 @@ export const TEMPLATE_REGISTRY: Record<string, TemplateDefinition> = {
     metadata: profileCardMetadata,
     defaultData: profileCardDefaultData,
     TemplateComponent: ProfileCardTemplate,
+    exportSupported: true,
+  },
+  [lightVCardMetadata.id]: {
+    metadata: lightVCardMetadata,
+    defaultData: lightVCardDefaultData,
+    TemplateComponent: LightVCardTemplate,
     exportSupported: true,
   },
 };
