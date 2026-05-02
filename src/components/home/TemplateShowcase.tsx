@@ -29,7 +29,7 @@ export function TemplateShowcase() {
           ))}
           <article className="rounded-[28px] border border-dashed border-black/15 bg-white/50 p-6">
             <p className="font-mono text-xs uppercase tracking-[0.24em] text-black/45">Future templates</p>
-            <p className="mt-4 text-2xl font-semibold tracking-[-0.04em]">Developer OS, DevFlex, and more.</p>
+            <p className="mt-4 text-2xl font-semibold tracking-[-0.04em]">DevFlex and more.</p>
             <p className="mt-3 text-sm leading-7 text-black/65">
               They stay out of this milestone so the shared data schema and editing model can settle first.
             </p>
