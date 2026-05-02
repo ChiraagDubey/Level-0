@@ -26,6 +26,9 @@ export function DashboardShell() {
                 <div>
                   <p className="font-mono text-xs uppercase tracking-[0.24em] text-black/45">Templates</p>
                   <h2 className="mt-2 text-3xl font-semibold tracking-[-0.04em]">Available now</h2>
+                  <p className="mt-2 text-sm leading-7 text-black/60">
+                    Six free starting points with distinct visual directions and the same editor flow.
+                  </p>
                 </div>
               </div>
               <div className="grid gap-5">

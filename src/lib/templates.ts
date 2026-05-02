@@ -28,52 +28,113 @@ export interface TemplateComponentProps {
 
 export interface TemplateDefinition {
   metadata: TemplateMetadata;
+  gallery: TemplateGalleryMetadata;
   defaultData: PortfolioData;
   TemplateComponent: ComponentType<TemplateComponentProps>;
   exportSupported: boolean;
   exportNote?: string;
 }
 
+export type TemplateGalleryTheme = "light" | "dark";
+export type TemplateGalleryPlan = "Free";
+export type TemplatePreviewStyle =
+  | "minimal"
+  | "dark-clean"
+  | "dark-vcard"
+  | "light-vcard"
+  | "developer-os"
+  | "arcade-neon";
+
+export interface TemplateGalleryMetadata {
+  theme: TemplateGalleryTheme;
+  plan: TemplateGalleryPlan;
+  bestFor: string;
+  previewStyle: TemplatePreviewStyle;
+}
+
+export interface TemplateGalleryEntry extends TemplateMetadata {
+  gallery: TemplateGalleryMetadata;
+}
+
 export const TEMPLATE_REGISTRY: Record<string, TemplateDefinition> = {
   [simpleStarterMetadata.id]: {
     metadata: simpleStarterMetadata,
+    gallery: {
+      theme: "light",
+      plan: "Free",
+      bestFor: "First portfolio launch",
+      previewStyle: "minimal",
+    },
     defaultData: simpleStarterDefaultData,
     TemplateComponent: SimpleStarterTemplate,
     exportSupported: true,
   },
   [darkStarterMetadata.id]: {
     metadata: darkStarterMetadata,
+    gallery: {
+      theme: "dark",
+      plan: "Free",
+      bestFor: "Clean dark portfolios",
+      previewStyle: "dark-clean",
+    },
     defaultData: darkStarterDefaultData,
     TemplateComponent: DarkStarterTemplate,
     exportSupported: true,
   },
   [profileCardMetadata.id]: {
     metadata: profileCardMetadata,
+    gallery: {
+      theme: "dark",
+      plan: "Free",
+      bestFor: "Compact personal brand",
+      previewStyle: "dark-vcard",
+    },
     defaultData: profileCardDefaultData,
     TemplateComponent: ProfileCardTemplate,
     exportSupported: true,
   },
   [lightVCardMetadata.id]: {
     metadata: lightVCardMetadata,
+    gallery: {
+      theme: "light",
+      plan: "Free",
+      bestFor: "Polished profile sites",
+      previewStyle: "light-vcard",
+    },
     defaultData: lightVCardDefaultData,
     TemplateComponent: LightVCardTemplate,
     exportSupported: true,
   },
   [developerOSMetadata.id]: {
     metadata: developerOSMetadata,
+    gallery: {
+      theme: "dark",
+      plan: "Free",
+      bestFor: "Developer dashboards",
+      previewStyle: "developer-os",
+    },
     defaultData: developerOSDefaultData,
     TemplateComponent: DeveloperOSTemplate,
     exportSupported: true,
   },
   [arcadeNeonMetadata.id]: {
     metadata: arcadeNeonMetadata,
+    gallery: {
+      theme: "dark",
+      plan: "Free",
+      bestFor: "Bold experimental portfolios",
+      previewStyle: "arcade-neon",
+    },
     defaultData: arcadeNeonDefaultData,
     TemplateComponent: ArcadeNeonTemplate,
     exportSupported: true,
   },
 };
 
-export const AVAILABLE_TEMPLATES = Object.values(TEMPLATE_REGISTRY).map(({ metadata }) => metadata);
+export const AVAILABLE_TEMPLATES: TemplateGalleryEntry[] = Object.values(TEMPLATE_REGISTRY).map(({ metadata, gallery }) => ({
+  ...metadata,
+  gallery,
+}));
 
 export function getTemplateDefinition(templateId?: string) {
   return TEMPLATE_REGISTRY[templateId ?? simpleStarterMetadata.id] ?? TEMPLATE_REGISTRY[simpleStarterMetadata.id];
