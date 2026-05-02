@@ -1,0 +1,24 @@
+
+> level-0@0.1.0 dev
+> next dev
+
+ ⚠ Port 3000 is in use by process 5736, using available port 3002 instead.
+   ▲ Next.js 15.5.9
+   - Local:        http://localhost:3002
+   - Network:      http://192.168.164.1:3002
+
+ ✓ Starting...
+ ✓ Ready in 4.3s
+ ○ Compiling / ...
+ ✓ Compiled / in 2.5s (594 modules)
+ GET / 200 in 4581ms
+ GET / 200 in 311ms
+ ○ Compiling /dashboard ...
+ ✓ Compiled /dashboard in 2.4s (615 modules)
+ ✓ Compiled in 392ms (239 modules)
+ GET /dashboard 200 in 2813ms
+ GET /dashboard 200 in 60ms
+ GET /dashboard 200 in 47ms
+ ○ Compiling /editor ...
+ ✓ Compiled /editor in 1212ms (710 modules)
+ GET /editor?template=simple-starter 200 in 1904ms
