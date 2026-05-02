@@ -1,4 +1,7 @@
 import type { ComponentType } from "react";
+import { defaultPortfolioData as arcadeNeonDefaultData } from "@/templates/arcade-neon/defaultData";
+import { arcadeNeonMetadata } from "@/templates/arcade-neon/metadata";
+import { ArcadeNeonTemplate } from "@/templates/arcade-neon/Template";
 import { defaultPortfolioData as darkStarterDefaultData } from "@/templates/dark-starter/defaultData";
 import { darkStarterMetadata } from "@/templates/dark-starter/metadata";
 import { DarkStarterTemplate } from "@/templates/dark-starter/Template";
@@ -60,6 +63,12 @@ export const TEMPLATE_REGISTRY: Record<string, TemplateDefinition> = {
     metadata: developerOSMetadata,
     defaultData: developerOSDefaultData,
     TemplateComponent: DeveloperOSTemplate,
+    exportSupported: true,
+  },
+  [arcadeNeonMetadata.id]: {
+    metadata: arcadeNeonMetadata,
+    defaultData: arcadeNeonDefaultData,
+    TemplateComponent: ArcadeNeonTemplate,
     exportSupported: true,
   },
 };
