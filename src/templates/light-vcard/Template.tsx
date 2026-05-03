@@ -10,7 +10,7 @@ interface LightVCardTemplateProps {
   data: PortfolioData;
   editable?: boolean;
   onTextEdit?: (path: Array<string | number>, value: string) => void;
-  onImageEdit?: (path: Array<string | number>, value: string) => void;
+  onImageEdit?: (path: Array<string | number>, file: File) => void;
 }
 
 type LightVCardTab = "about" | "resume" | "projects" | "contact";

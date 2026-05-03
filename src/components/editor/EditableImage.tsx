@@ -6,7 +6,7 @@ interface EditableImageProps {
   src: string;
   alt: string;
   className?: string;
-  onChange: (value: string) => void;
+  onChange: (file: File) => void;
 }
 
 export function EditableImage({ src, alt, className, onChange }: EditableImageProps) {
@@ -34,7 +34,7 @@ export function EditableImage({ src, alt, className, onChange }: EditableImagePr
             return;
           }
 
-          onChange(URL.createObjectURL(file));
+          onChange(file);
           event.target.value = "";
         }}
       />

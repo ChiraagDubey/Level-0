@@ -1,4 +1,5 @@
 import { createServerClient } from "@supabase/ssr";
+import type { User } from "@supabase/supabase-js";
 import { NextResponse, type NextRequest } from "next/server";
 
 function getSupabaseEnv() {
@@ -14,6 +15,53 @@ function getSupabaseEnv() {
   }
 
   return { supabaseUrl, supabaseAnonKey };
+}
+
+function getAuthErrorMessage(error: unknown) {
+  if (error instanceof Error) {
+    return error.message;
+  }
+
+  if (typeof error === "object" && error !== null && "message" in error) {
+    const message = (error as { message?: unknown }).message;
+    return typeof message === "string" ? message : null;
+  }
+
+  return null;
+}
+
+function isInvalidRefreshTokenError(error: unknown) {
+  const message = getAuthErrorMessage(error)?.toLowerCase() ?? "";
+
+  return message.includes("invalid refresh token") || message.includes("refresh token not found");
+}
+
+function isSupabaseAuthTokenCookie(name: string) {
+  return (
+    (name.startsWith("sb-") && name.includes("-auth-token")) ||
+    name === "supabase-auth-token" ||
+    name.startsWith("supabase-auth-token.")
+  );
+}
+
+function clearSupabaseAuthCookies(request: NextRequest, response: NextResponse) {
+  request.cookies
+    .getAll()
+    .filter(({ name }) => isSupabaseAuthTokenCookie(name))
+    .forEach(({ name }) => {
+      response.cookies.delete(name);
+    });
+}
+
+function logAuthWarning(context: string, error: unknown) {
+  const message = getAuthErrorMessage(error);
+
+  if (message) {
+    console.warn(`[auth] ${context}: ${message}`);
+    return;
+  }
+
+  console.warn(`[auth] ${context}: failed to resolve current user`);
 }
 
 export async function middleware(request: NextRequest) {
@@ -48,9 +96,30 @@ export async function middleware(request: NextRequest) {
     },
   });
 
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  let user: User | null = null;
+
+  try {
+    const {
+      data: { user: currentUser },
+      error,
+    } = await supabase.auth.getUser();
+
+    if (error) {
+      logAuthWarning("middleware", error);
+
+      if (isInvalidRefreshTokenError(error)) {
+        clearSupabaseAuthCookies(request, response);
+      }
+    } else {
+      user = currentUser;
+    }
+  } catch (error) {
+    logAuthWarning("middleware", error);
+
+    if (isInvalidRefreshTokenError(error)) {
+      clearSupabaseAuthCookies(request, response);
+    }
+  }
 
   if (request.nextUrl.pathname.startsWith("/editor") && !user) {
     const redirectTarget = `${request.nextUrl.pathname}${request.nextUrl.search}`;
@@ -62,7 +131,11 @@ export async function middleware(request: NextRequest) {
       loginUrl.searchParams.set("redirect", "/editor");
     }
 
-    return NextResponse.redirect(loginUrl);
+    const redirectResponse = NextResponse.redirect(loginUrl);
+
+    clearSupabaseAuthCookies(request, redirectResponse);
+
+    return redirectResponse;
   }
 
   return response;

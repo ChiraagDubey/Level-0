@@ -1,7 +1,7 @@
 import { notFound, redirect } from "next/navigation";
 import { EditorShell } from "@/components/editor/EditorShell";
 import { getPortfolioDraftById } from "@/lib/portfolios";
-import { createSupabaseServerClient } from "@/lib/supabase/server";
+import { createSupabaseServerClient, getCurrentUserSafe } from "@/lib/supabase/server";
 
 export default async function SavedPortfolioEditorPage({
   params,
@@ -10,9 +10,7 @@ export default async function SavedPortfolioEditorPage({
 }) {
   const { portfolioId } = await params;
   const supabase = await createSupabaseServerClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const user = await getCurrentUserSafe(supabase, "saved-editor-page");
 
   if (!user) {
     redirect(`/?redirect=${encodeURIComponent(`/editor/${portfolioId}`)}`);
@@ -30,6 +28,7 @@ export default async function SavedPortfolioEditorPage({
       selectedTemplateId={draft.template_id}
       initialPortfolioData={draft.portfolio_json}
       initialDraftTitle={draft.title}
+      currentUserId={user.id}
       isSavedDraft
     />
   );

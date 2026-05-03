@@ -3,14 +3,12 @@
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { createPortfolioDraft, updatePortfolioDraft } from "@/lib/portfolios";
-import { createSupabaseServerClient } from "@/lib/supabase/server";
+import { createSupabaseServerClient, getCurrentUserSafe } from "@/lib/supabase/server";
 import type { PortfolioData } from "@/types/portfolio";
 
 export async function createPortfolioFromTemplate(templateId: string) {
   const supabase = await createSupabaseServerClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const user = await getCurrentUserSafe(supabase, "create-portfolio-action");
 
   if (!user) {
     redirect(`/?redirect=${encodeURIComponent(`/editor?template=${templateId}`)}`);
@@ -28,9 +26,7 @@ export async function savePortfolioDraft(
   fallbackTitle: string,
 ): Promise<{ status: "saved"; title: string } | { status: "error"; message: string }> {
   const supabase = await createSupabaseServerClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const user = await getCurrentUserSafe(supabase, "save-portfolio-action");
 
   if (!user) {
     return {

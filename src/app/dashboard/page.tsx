@@ -1,12 +1,10 @@
 import { DashboardShell } from "@/components/dashboard/DashboardShell";
 import { listPortfolioDrafts } from "@/lib/portfolios";
-import { createSupabaseServerClient } from "@/lib/supabase/server";
+import { createSupabaseServerClient, getCurrentUserSafe } from "@/lib/supabase/server";
 
 export default async function DashboardPage() {
   const supabase = await createSupabaseServerClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const user = await getCurrentUserSafe(supabase, "dashboard-page");
 
   const drafts = user ? await listPortfolioDrafts(supabase, user.id) : [];
 

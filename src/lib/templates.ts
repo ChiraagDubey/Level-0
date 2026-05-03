@@ -23,7 +23,7 @@ export interface TemplateComponentProps {
   data: PortfolioData;
   editable?: boolean;
   onTextEdit?: (path: Array<string | number>, value: string) => void;
-  onImageEdit?: (path: Array<string | number>, value: string) => void;
+  onImageEdit?: (path: Array<string | number>, file: File) => void;
 }
 
 export interface TemplateDefinition {

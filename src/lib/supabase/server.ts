@@ -1,4 +1,5 @@
 import { createServerClient } from "@supabase/ssr";
+import type { SupabaseClient, User } from "@supabase/supabase-js";
 import { cookies } from "next/headers";
 
 function getSupabaseEnv() {
@@ -14,6 +15,38 @@ function getSupabaseEnv() {
   }
 
   return { supabaseUrl, supabaseAnonKey };
+}
+
+function getAuthErrorMessage(error: unknown) {
+  if (error instanceof Error) {
+    return error.message;
+  }
+
+  if (typeof error === "object" && error !== null && "message" in error) {
+    const message = (error as { message?: unknown }).message;
+    return typeof message === "string" ? message : null;
+  }
+
+  return null;
+}
+
+function logAuthWarning(context: string, error: unknown) {
+  const message = getAuthErrorMessage(error);
+
+  if (message) {
+    console.warn(`[auth] ${context}: ${message}`);
+    return;
+  }
+
+  console.warn(`[auth] ${context}: failed to resolve current user`);
+}
+
+export function isSupabaseAuthTokenCookie(name: string) {
+  return (
+    (name.startsWith("sb-") && name.includes("-auth-token")) ||
+    name === "supabase-auth-token" ||
+    name.startsWith("supabase-auth-token.")
+  );
 }
 
 export async function createSupabaseServerClient() {
@@ -36,4 +69,26 @@ export async function createSupabaseServerClient() {
       },
     },
   });
+}
+
+export async function getCurrentUserSafe(
+  supabase: SupabaseClient,
+  context = "server",
+): Promise<User | null> {
+  try {
+    const {
+      data: { user },
+      error,
+    } = await supabase.auth.getUser();
+
+    if (error) {
+      logAuthWarning(context, error);
+      return null;
+    }
+
+    return user;
+  } catch (error) {
+    logAuthWarning(context, error);
+    return null;
+  }
 }

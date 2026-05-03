@@ -10,7 +10,7 @@ interface SimpleStarterTemplateProps {
   data: PortfolioData;
   editable?: boolean;
   onTextEdit?: (path: Array<string | number>, value: string) => void;
-  onImageEdit?: (path: Array<string | number>, value: string) => void;
+  onImageEdit?: (path: Array<string | number>, file: File) => void;
 }
 
 function withAlpha(color: string, alpha: string) {
