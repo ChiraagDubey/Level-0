@@ -1,6 +1,17 @@
 import Link from "next/link";
+import type { User } from "@supabase/supabase-js";
+import { AuthButtons } from "@/components/auth/AuthButtons";
 
-export function Hero() {
+export function Hero({
+  user,
+  redirectPath,
+}: {
+  user: User | null;
+  redirectPath?: string;
+}) {
+  const isSignedIn = Boolean(user);
+  const startHref = isSignedIn ? "/dashboard" : redirectPath ?? "/dashboard";
+
   return (
     <section className="shell pt-10 md:pt-14">
       <div className="panel overflow-hidden">
@@ -17,20 +28,37 @@ export function Hero() {
                 the live preview, and export a clean standalone project.
               </p>
             </div>
-            <div className="flex flex-wrap gap-3">
-              <Link
-                href="/dashboard"
-                className="rounded-full bg-ink px-5 py-3 text-sm font-medium text-white transition hover:translate-y-[-1px]"
-              >
-                Start Building
-              </Link>
-              <Link
-                href="/dashboard"
-                className="rounded-full border border-black/10 bg-white px-5 py-3 text-sm font-medium text-ink transition hover:border-black/20"
-              >
-                Sign In Placeholder
-              </Link>
-            </div>
+            {isSignedIn ? (
+              <div className="flex flex-wrap gap-3">
+                <Link
+                  href="/dashboard"
+                  className="rounded-full bg-ink px-5 py-3 text-sm font-medium text-white transition hover:translate-y-[-1px]"
+                >
+                  Start Building
+                </Link>
+                <Link
+                  href="/dashboard"
+                  className="rounded-full border border-black/10 bg-white px-5 py-3 text-sm font-medium text-ink transition hover:border-black/20"
+                >
+                  Open Dashboard
+                </Link>
+              </div>
+            ) : (
+              <div className="space-y-4">
+                <div className="flex flex-wrap gap-3">
+                  <Link
+                    href={startHref}
+                    className="rounded-full bg-ink px-5 py-3 text-sm font-medium text-white transition hover:translate-y-[-1px]"
+                  >
+                    Start Building
+                  </Link>
+                </div>
+                <div className="max-w-md">
+                  <p className="mb-3 text-sm leading-7 text-black/62">Sign in with Google or GitHub to unlock template editing and portfolio export.</p>
+                  <AuthButtons redirectToPath={redirectPath ?? "/dashboard"} />
+                </div>
+              </div>
+            )}
           </div>
 
           <div className="grid gap-4 rounded-[32px] bg-ink p-5 text-white">

@@ -8,7 +8,11 @@ interface EditorToolbarProps {
   templateName: string;
   accentColor: string;
   onAccentColorChange: (preset: ColorPreset) => void;
+  onSave?: () => void;
   onExport: () => void;
+  saveStatus?: "idle" | "saving" | "saved" | "error";
+  saveMessage?: string | null;
+  mode: "local" | "saved";
   isExporting: boolean;
   exportSupported: boolean;
   exportNote?: string;
@@ -18,14 +22,21 @@ export function EditorToolbar({
   templateName,
   accentColor,
   onAccentColorChange,
+  onSave,
   onExport,
+  saveStatus = "idle",
+  saveMessage,
+  mode,
   isExporting,
   exportSupported,
   exportNote,
 }: EditorToolbarProps) {
+  const isSavedMode = mode === "saved";
   const exportButtonClassName = exportSupported
     ? "rounded-full bg-ink px-4 py-2.5 text-sm font-medium text-white disabled:cursor-wait disabled:opacity-70"
     : "rounded-full border border-black/10 bg-white px-4 py-2.5 text-sm font-medium text-black/50 disabled:cursor-not-allowed disabled:opacity-100";
+  const saveButtonLabel =
+    saveStatus === "saving" ? "Saving..." : saveStatus === "saved" ? "Saved" : saveStatus === "error" ? "Error saving" : "Save";
 
   return (
     <div className="panel p-5">
@@ -42,6 +53,16 @@ export function EditorToolbar({
             <Link href="/dashboard" className="rounded-full border border-black/10 px-4 py-2.5 text-sm font-medium">
               Dashboard
             </Link>
+            {isSavedMode ? (
+              <button
+                type="button"
+                onClick={onSave}
+                disabled={saveStatus === "saving"}
+                className="rounded-full border border-black/10 bg-white px-4 py-2.5 text-sm font-medium text-black disabled:cursor-wait disabled:opacity-70"
+              >
+                {saveButtonLabel}
+              </button>
+            ) : null}
             <button
               type="button"
               onClick={onExport}
@@ -54,12 +75,19 @@ export function EditorToolbar({
         </div>
 
         {exportNote ? <p className="text-sm text-black/55">{exportNote}</p> : null}
+        {saveMessage ? (
+          <p className={`text-sm ${saveStatus === "error" ? "text-[#b42318]" : "text-black/55"}`}>{saveMessage}</p>
+        ) : null}
 
         <div className="grid gap-4 rounded-[24px] bg-sand/70 p-4 md:grid-cols-[0.7fr_1.3fr]">
           <div>
-            <p className="font-mono text-xs uppercase tracking-[0.24em] text-black/45">MVP controls</p>
+            <p className="font-mono text-xs uppercase tracking-[0.24em] text-black/45">
+              {isSavedMode ? "Saved Draft Mode" : "Local Mode"}
+            </p>
             <p className="mt-2 text-sm leading-7 text-black/65">
-              This release stays local only. No auth, no database, no payments, no scraper logic, no AI.
+              {isSavedMode
+                ? "Manual save is enabled for this draft. Autosave and image persistence will land in later steps."
+                : "Create a saved draft from Dashboard to persist changes."}
             </p>
           </div>
           <div>

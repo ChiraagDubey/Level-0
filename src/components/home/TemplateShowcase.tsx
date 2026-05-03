@@ -1,8 +1,9 @@
 import Link from "next/link";
+import type { User } from "@supabase/supabase-js";
 import { AVAILABLE_TEMPLATES } from "@/lib/templates";
 import { TemplateGalleryCard } from "@/components/templates/TemplateGalleryCard";
 
-export function TemplateShowcase() {
+export function TemplateShowcase({ user }: { user: User | null }) {
   return (
     <section className="shell py-8 md:py-10">
       <div className="panel px-6 py-8 md:px-10 md:py-10">
@@ -16,7 +17,7 @@ export function TemplateShowcase() {
         </div>
         <div className="mt-8 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
           {AVAILABLE_TEMPLATES.map((template) => (
-            <TemplateGalleryCard key={template.id} template={template} />
+            <TemplateGalleryCard key={template.id} template={template} user={user} />
           ))}
         </div>
         <div className="mt-8 flex justify-start">

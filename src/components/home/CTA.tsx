@@ -1,6 +1,7 @@
 import Link from "next/link";
+import type { User } from "@supabase/supabase-js";
 
-export function CTA() {
+export function CTA({ user }: { user: User | null }) {
   return (
     <section className="shell py-8 pb-14 md:pb-16">
       <div className="rounded-[32px] bg-ink px-6 py-10 text-white md:px-10">
@@ -12,10 +13,10 @@ export function CTA() {
             </h2>
           </div>
           <Link
-            href="/dashboard"
+            href={user ? "/dashboard" : "/"}
             className="inline-flex h-fit rounded-full bg-white px-5 py-3 text-sm font-medium text-ink transition hover:translate-y-[-1px]"
           >
-            Open Dashboard
+            {user ? "Open Dashboard" : "Sign In to Start"}
           </Link>
         </div>
       </div>

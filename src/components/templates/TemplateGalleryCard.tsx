@@ -1,4 +1,6 @@
 import Link from "next/link";
+import type { User } from "@supabase/supabase-js";
+import { createPortfolioFromTemplate } from "@/app/actions/portfolios";
 import type { TemplateGalleryEntry } from "@/lib/templates";
 import { TemplatePreview } from "@/components/templates/TemplatePreview";
 
@@ -10,12 +12,17 @@ const badgeToneClasses = {
 export function TemplateGalleryCard({
   template,
   variant = "home",
+  user = null,
 }: {
   template: TemplateGalleryEntry;
   variant?: "home" | "dashboard";
+  user?: User | null;
 }) {
   const isDashboard = variant === "dashboard";
   const tone = badgeToneClasses[template.gallery.theme];
+  const editorHref = `/editor?template=${template.id}`;
+  const actionHref = user ? editorHref : `/?redirect=${encodeURIComponent(editorHref)}`;
+  const createPortfolioAction = createPortfolioFromTemplate.bind(null, template.id);
 
   return (
     <article
@@ -42,12 +49,23 @@ export function TemplateGalleryCard({
             <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-black/45">Best for</p>
             <p className="mt-1 text-sm font-medium text-black/75">{template.gallery.bestFor}</p>
           </div>
-          <Link
-            href={`/editor?template=${template.id}`}
-            className="inline-flex rounded-full bg-ink px-4 py-2.5 text-sm font-medium text-white transition-transform duration-150 hover:-translate-y-0.5"
-          >
-            Use Template
-          </Link>
+          {user ? (
+            <form action={createPortfolioAction}>
+              <button
+                type="submit"
+                className="inline-flex rounded-full bg-ink px-4 py-2.5 text-sm font-medium text-white transition-transform duration-150 hover:-translate-y-0.5"
+              >
+                Use Template
+              </button>
+            </form>
+          ) : (
+            <Link
+              href={actionHref}
+              className="inline-flex rounded-full bg-ink px-4 py-2.5 text-sm font-medium text-white transition-transform duration-150 hover:-translate-y-0.5"
+            >
+              Use Template
+            </Link>
+          )}
         </div>
       </div>
     </article>
