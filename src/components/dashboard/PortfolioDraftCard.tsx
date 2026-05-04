@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { User } from "@supabase/supabase-js";
+import { DeleteDraftButton } from "@/components/dashboard/DeleteDraftButton";
 import type { PortfolioDraftSummary } from "@/lib/portfolios";
 import { getTemplateDefinition } from "@/lib/templates";
 
@@ -60,12 +61,15 @@ export function PortfolioDraftCard({
                 </span>
               </div>
               <div className="mt-4">
-                <Link
-                  href={`/editor/${draft.id}`}
-                  className="inline-flex rounded-full bg-ink px-4 py-2.5 text-sm font-medium text-white transition-transform duration-150 hover:-translate-y-0.5"
-                >
-                  Open/Edit
-                </Link>
+                <div className="flex flex-wrap items-start gap-3">
+                  <Link
+                    href={`/editor/${draft.id}`}
+                    className="inline-flex rounded-full bg-ink px-4 py-2.5 text-sm font-medium text-white transition-transform duration-150 hover:-translate-y-0.5"
+                  >
+                    Open/Edit
+                  </Link>
+                  {isSignedIn ? <DeleteDraftButton portfolioId={draft.id} draftTitle={draft.title} /> : null}
+                </div>
               </div>
             </div>
           );

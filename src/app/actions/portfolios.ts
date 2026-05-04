@@ -2,7 +2,7 @@
 
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
-import { createPortfolioDraft, updatePortfolioDraft } from "@/lib/portfolios";
+import { createPortfolioDraft, deletePortfolioDraft, updatePortfolioDraft } from "@/lib/portfolios";
 import { createSupabaseServerClient, getCurrentUserSafe } from "@/lib/supabase/server";
 import type { PortfolioData } from "@/types/portfolio";
 
@@ -48,6 +48,34 @@ export async function savePortfolioDraft(
     return {
       status: "error",
       message: error instanceof Error ? error.message : "Failed to save portfolio draft.",
+    };
+  }
+}
+
+export async function deletePortfolioDraftAction(
+  portfolioId: string,
+): Promise<{ status: "deleted" } | { status: "error"; message: string }> {
+  const supabase = await createSupabaseServerClient();
+  const user = await getCurrentUserSafe(supabase, "delete-portfolio-action");
+
+  if (!user) {
+    return {
+      status: "error",
+      message: "You must be signed in to delete this draft.",
+    };
+  }
+
+  try {
+    await deletePortfolioDraft(supabase, portfolioId, user.id);
+    revalidatePath("/dashboard");
+
+    return {
+      status: "deleted",
+    };
+  } catch (error) {
+    return {
+      status: "error",
+      message: error instanceof Error ? error.message : "Failed to delete portfolio draft.",
     };
   }
 }

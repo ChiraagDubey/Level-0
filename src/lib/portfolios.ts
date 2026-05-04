@@ -238,6 +238,28 @@ export async function updatePortfolioDraft(
   };
 }
 
+export async function deletePortfolioDraft(supabase: SupabaseClient, portfolioId: string, userId: string) {
+  const { data, error } = await supabase
+    .from("portfolios")
+    .delete()
+    .eq("id", portfolioId)
+    .eq("user_id", userId)
+    .select("id")
+    .maybeSingle();
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  if (!data?.id) {
+    throw new Error("Draft not found or you do not have permission to delete it.");
+  }
+
+  return {
+    id: String(data.id),
+  };
+}
+
 export async function listPortfolioDrafts(supabase: SupabaseClient, userId: string): Promise<PortfolioDraftSummary[]> {
   const { data, error } = await supabase
     .from("portfolios")

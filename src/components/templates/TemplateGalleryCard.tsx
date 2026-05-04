@@ -4,11 +4,6 @@ import { createPortfolioFromTemplate } from "@/app/actions/portfolios";
 import type { TemplateGalleryEntry } from "@/lib/templates";
 import { TemplatePreview } from "@/components/templates/TemplatePreview";
 
-const badgeToneClasses = {
-  light: "border-black/10 bg-black/[0.04] text-black/65",
-  dark: "border-white/10 bg-white/[0.08] text-white/80",
-} as const;
-
 export function TemplateGalleryCard({
   template,
   variant = "home",
@@ -19,7 +14,6 @@ export function TemplateGalleryCard({
   user?: User | null;
 }) {
   const isDashboard = variant === "dashboard";
-  const tone = badgeToneClasses[template.gallery.theme];
   const editorHref = `/editor?template=${template.id}`;
   const actionHref = user ? editorHref : `/?redirect=${encodeURIComponent(editorHref)}`;
   const createPortfolioAction = createPortfolioFromTemplate.bind(null, template.id);
@@ -34,9 +28,6 @@ export function TemplateGalleryCard({
         <TemplatePreview gallery={template.gallery} />
         <div className={isDashboard ? "space-y-4" : "space-y-4 p-6"}>
           <div className="flex flex-wrap gap-2">
-            <span className={`inline-flex rounded-full border px-3 py-1 text-[11px] font-mono uppercase tracking-[0.22em] ${tone}`}>
-              {template.gallery.theme}
-            </span>
             <span className="inline-flex rounded-full border border-emerald-600/15 bg-emerald-500/10 px-3 py-1 text-[11px] font-mono uppercase tracking-[0.22em] text-emerald-700">
               {template.gallery.plan}
             </span>
