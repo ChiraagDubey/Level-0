@@ -1,4 +1,5 @@
 import { lookup } from "node:dns/promises";
+import type { LookupAddress } from "node:dns";
 import { isIP } from "node:net";
 import { WebsiteImportError } from "@/types/websiteImport";
 
@@ -127,7 +128,7 @@ export async function assertPublicResolvableUrl(rawUrl: string | URL) {
     return url;
   }
 
-  let addresses: Awaited<ReturnType<typeof lookup>>;
+  let addresses: LookupAddress[];
 
   try {
     addresses = await lookup(hostname, { all: true, verbatim: true });
