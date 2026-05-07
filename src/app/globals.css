@@ -18,9 +18,7 @@ body {
   margin: 0;
   min-height: 100vh;
   font-family: var(--font-display), sans-serif;
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.28) 0%, rgba(245, 239, 227, 1) 100%),
-    linear-gradient(135deg, rgba(240, 138, 93, 0.08), transparent 45%);
+  background-color: var(--theme-background, #fbf9f4);
 }
 
 a {

@@ -39,6 +39,23 @@ export function DarkStarterTemplate({
   const accent = data.theme.accentName === "monochrome" ? "#f3f4f6" : data.theme.accentColor;
   const themeStyle = { ["--accent" as string]: accent } as CSSProperties;
   const accentButtonTextClassName = isLightColor(accent) ? "text-ink" : "text-white";
+  const featuredExperience = data.experience[0];
+  const featuredEducation = data.education[0];
+  const featuredSkillGroup = data.skills[0];
+  const labels = {
+    heroExperienceLabel: data.templateLabels?.heroExperienceLabel ?? "Current role",
+    heroEducationLabel: data.templateLabels?.heroEducationLabel ?? "Education",
+    heroSkillsLabel: data.templateLabels?.heroSkillsLabel ?? "Core stack",
+    socialLinksLabel: data.templateLabels?.socialLinksLabel ?? "Social links",
+    aboutSkillsLabel: data.templateLabels?.aboutSkillsLabel ?? "Focus",
+    locationLabel: data.templateLabels?.locationLabel ?? "Location",
+    availabilityLabel: data.templateLabels?.availabilityLabel ?? "Availability",
+    projectsLabel: data.templateLabels?.projectsLabel ?? "Projects",
+    projectsTitle: data.templateLabels?.projectsTitle ?? "Featured work",
+    skillsLabel: data.templateLabels?.skillsLabel ?? "Skills",
+    experienceLabel: data.templateLabels?.experienceLabel ?? "Experience",
+    educationLabel: data.templateLabels?.educationLabel ?? "Education",
+  };
 
   const renderText = ({
     path,
@@ -154,17 +171,112 @@ export function DarkStarterTemplate({
                   })}
                 </EditableLinkButton>
               </div>
+
+              <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
+                {featuredExperience ? (
+                  <div className="rounded-[24px] border border-white/10 bg-white/[0.03] p-4">
+                    {renderText({
+                      path: ["templateLabels", "heroExperienceLabel"],
+                      value: labels.heroExperienceLabel,
+                      as: "p",
+                      className: "font-mono text-[11px] uppercase tracking-[0.24em] text-[var(--accent)]",
+                    })}
+                    {renderText({
+                      path: ["experience", 0, "role"],
+                      value: featuredExperience.role,
+                      as: "p",
+                      className: "mt-3 text-base font-semibold text-white",
+                    })}
+                    {renderText({
+                      path: ["experience", 0, "company"],
+                      value: featuredExperience.company,
+                      as: "p",
+                      className: "mt-1 text-sm text-white/62",
+                    })}
+                    {renderText({
+                      path: ["experience", 0, "period"],
+                      value: featuredExperience.period,
+                      as: "p",
+                      className: "mt-3 font-mono text-[11px] uppercase tracking-[0.24em] text-white/40",
+                    })}
+                  </div>
+                ) : null}
+
+                {featuredEducation ? (
+                  <div className="rounded-[24px] border border-white/10 bg-white/[0.03] p-4">
+                    {renderText({
+                      path: ["templateLabels", "heroEducationLabel"],
+                      value: labels.heroEducationLabel,
+                      as: "p",
+                      className: "font-mono text-[11px] uppercase tracking-[0.24em] text-[var(--accent)]",
+                    })}
+                    {renderText({
+                      path: ["education", 0, "degree"],
+                      value: featuredEducation.degree,
+                      as: "p",
+                      className: "mt-3 text-base font-semibold text-white",
+                    })}
+                    {renderText({
+                      path: ["education", 0, "school"],
+                      value: featuredEducation.school,
+                      as: "p",
+                      className: "mt-1 text-sm leading-6 text-white/62",
+                    })}
+                    {renderText({
+                      path: ["education", 0, "period"],
+                      value: featuredEducation.period,
+                      as: "p",
+                      className: "mt-3 font-mono text-[11px] uppercase tracking-[0.24em] text-white/40",
+                    })}
+                  </div>
+                ) : null}
+
+                {featuredSkillGroup ? (
+                  <div className="rounded-[24px] border border-white/10 bg-white/[0.03] p-4 sm:col-span-2 xl:col-span-1">
+                    {renderText({
+                      path: ["templateLabels", "heroSkillsLabel"],
+                      value: labels.heroSkillsLabel,
+                      as: "p",
+                      className: "font-mono text-[11px] uppercase tracking-[0.24em] text-[var(--accent)]",
+                    })}
+                    {renderText({
+                      path: ["skills", 0, "title"],
+                      value: featuredSkillGroup.title,
+                      as: "p",
+                      className: "mt-3 text-base font-semibold text-white",
+                    })}
+                    <div className="mt-3 flex flex-wrap gap-2">
+                      {featuredSkillGroup.items.slice(0, 4).map((item, itemIndex) => (
+                        <span
+                          key={`${featuredSkillGroup.id}-${itemIndex}`}
+                          className="rounded-full border px-3 py-1 text-sm"
+                          style={{ borderColor: withAlpha(accent, "38"), backgroundColor: withAlpha(accent, "12"), color: accent }}
+                        >
+                          {renderText({
+                            path: ["skills", 0, "items", itemIndex],
+                            value: item,
+                            as: "span",
+                          })}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                ) : null}
+              </div>
             </div>
 
             <div className="grid gap-4">
               {renderImage(["hero", "profileImage"], data.hero.profileImage, `${data.hero.name} profile image`, "min-h-[340px]")}
               <div className="rounded-[28px] border border-white/10 bg-[#111423] p-5">
-                <p className="font-mono text-xs uppercase tracking-[0.24em]" style={{ color: accent }}>
-                  Social links
-                </p>
+                {renderText({
+                  path: ["templateLabels", "socialLinksLabel"],
+                  value: labels.socialLinksLabel,
+                  as: "p",
+                  className: "font-mono text-xs uppercase tracking-[0.24em] text-[var(--accent)]",
+                })}
                 <div className="mt-4 grid gap-3">
                   {data.socialLinks.map((link, index) => (
-                    <div key={link.id} className="rounded-[22px] border border-white/10 bg-white/[0.03] p-4">
+                    <div key={link.id} className="rounded-[22px] border border-white/10 bg-white/[0.04] p-4">
                       {renderText({
                         path: ["socialLinks", index, "label"],
                         value: link.label,
@@ -200,13 +312,47 @@ export function DarkStarterTemplate({
               className: "mt-4 text-sm leading-7 text-white/64 md:text-base",
               multiline: true,
             })}
+            {featuredSkillGroup ? (
+              <div className="mt-6 rounded-[24px] border border-white/10 bg-white/[0.03] p-4">
+                {renderText({
+                  path: ["templateLabels", "aboutSkillsLabel"],
+                  value: labels.aboutSkillsLabel,
+                  as: "p",
+                  className: "font-mono text-[11px] uppercase tracking-[0.24em] text-[var(--accent)]",
+                })}
+                {renderText({
+                  path: ["skills", 0, "title"],
+                  value: featuredSkillGroup.title,
+                  as: "p",
+                  className: "mt-3 text-base font-semibold text-white",
+                })}
+                <div className="mt-3 flex flex-wrap gap-2">
+                  {featuredSkillGroup.items.slice(0, 4).map((item, itemIndex) => (
+                    <span
+                      key={`about-${featuredSkillGroup.id}-${itemIndex}`}
+                      className="rounded-full border px-3 py-1 text-sm"
+                      style={{ borderColor: withAlpha(accent, "38"), backgroundColor: withAlpha(accent, "10"), color: accent }}
+                    >
+                      {renderText({
+                        path: ["skills", 0, "items", itemIndex],
+                        value: item,
+                        as: "span",
+                      })}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            ) : null}
           </div>
 
           <div className="grid gap-4">
             <div className="rounded-[30px] border border-white/10 bg-[#0f111b] p-6">
-              <p className="font-mono text-xs uppercase tracking-[0.24em]" style={{ color: accent }}>
-                Location
-              </p>
+              {renderText({
+                path: ["templateLabels", "locationLabel"],
+                value: labels.locationLabel,
+                as: "p",
+                className: "font-mono text-xs uppercase tracking-[0.24em] text-[var(--accent)]",
+              })}
               {renderText({
                 path: ["about", "location"],
                 value: data.about.location,
@@ -215,9 +361,12 @@ export function DarkStarterTemplate({
               })}
             </div>
             <div className="rounded-[30px] border border-white/10 bg-[#0f111b] p-6">
-              <p className="font-mono text-xs uppercase tracking-[0.24em]" style={{ color: accent }}>
-                Availability
-              </p>
+              {renderText({
+                path: ["templateLabels", "availabilityLabel"],
+                value: labels.availabilityLabel,
+                as: "p",
+                className: "font-mono text-xs uppercase tracking-[0.24em] text-[var(--accent)]",
+              })}
               {renderText({
                 path: ["about", "availability"],
                 value: data.about.availability,
@@ -230,10 +379,18 @@ export function DarkStarterTemplate({
         </section>
 
         <section className="rounded-[30px] border border-white/10 bg-[#0f111b] p-6 md:p-8">
-          <p className="font-mono text-xs uppercase tracking-[0.24em]" style={{ color: accent }}>
-            Projects
-          </p>
-          <h3 className="mt-2 text-3xl font-semibold tracking-[-0.04em] text-white">Featured work</h3>
+          {renderText({
+            path: ["templateLabels", "projectsLabel"],
+            value: labels.projectsLabel,
+            as: "p",
+            className: "font-mono text-xs uppercase tracking-[0.24em] text-[var(--accent)]",
+          })}
+          {renderText({
+            path: ["templateLabels", "projectsTitle"],
+            value: labels.projectsTitle,
+            as: "h3",
+            className: "mt-2 text-3xl font-semibold tracking-[-0.04em] text-white",
+          })}
           <div className="mt-8 grid gap-5">
             {data.projects.map((project, index) => (
               <article
@@ -297,9 +454,12 @@ export function DarkStarterTemplate({
 
         <section className="grid gap-6 xl:grid-cols-[0.72fr_1.28fr]">
           <div className="rounded-[30px] border border-white/10 bg-[#0f111b] p-6">
-            <p className="font-mono text-xs uppercase tracking-[0.24em]" style={{ color: accent }}>
-              Skills
-            </p>
+            {renderText({
+              path: ["templateLabels", "skillsLabel"],
+              value: labels.skillsLabel,
+              as: "p",
+              className: "font-mono text-xs uppercase tracking-[0.24em] text-[var(--accent)]",
+            })}
             <div className="mt-5 grid gap-4">
               {data.skills.map((group, groupIndex) => (
                 <div key={group.id} className="rounded-[24px] border border-white/10 bg-white/[0.02] p-4">
@@ -331,9 +491,12 @@ export function DarkStarterTemplate({
 
           <div className="grid gap-6">
             <div className="rounded-[30px] border border-white/10 bg-[#0f111b] p-6">
-              <p className="font-mono text-xs uppercase tracking-[0.24em]" style={{ color: accent }}>
-                Experience
-              </p>
+              {renderText({
+                path: ["templateLabels", "experienceLabel"],
+                value: labels.experienceLabel,
+                as: "p",
+                className: "font-mono text-xs uppercase tracking-[0.24em] text-[var(--accent)]",
+              })}
               <div className="mt-5 grid gap-4">
                 {data.experience.map((item, index) => (
                   <div key={item.id} className="rounded-[24px] border border-white/10 bg-white/[0.02] p-4">
@@ -372,9 +535,12 @@ export function DarkStarterTemplate({
             </div>
 
             <div className="rounded-[30px] border border-white/10 bg-[#0f111b] p-6">
-              <p className="font-mono text-xs uppercase tracking-[0.24em]" style={{ color: accent }}>
-                Education
-              </p>
+              {renderText({
+                path: ["templateLabels", "educationLabel"],
+                value: labels.educationLabel,
+                as: "p",
+                className: "font-mono text-xs uppercase tracking-[0.24em] text-[var(--accent)]",
+              })}
               <div className="mt-5 grid gap-4">
                 {data.education.map((item, index) => (
                   <div key={item.id} className="rounded-[24px] border border-white/10 bg-white/[0.02] p-4">
@@ -449,9 +615,9 @@ export function DarkStarterTemplate({
             className: "leading-7",
             multiline: true,
           })}
-          <p className="font-mono text-xs uppercase tracking-[0.24em]" style={{ color: accent }}>
-            {data.footer.watermark}
-          </p>
+          <div style={{ color: accent }}>
+            <p className="font-mono text-xs uppercase tracking-[0.24em]">{data.footer.watermark}</p>
+          </div>
         </footer>
       </div>
     </div>

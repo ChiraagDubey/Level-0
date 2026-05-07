@@ -13,7 +13,7 @@ export function EditableImage({ src, alt, className, onChange }: EditableImagePr
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   return (
-    <div className={`group relative overflow-hidden rounded-[28px] border border-black/10 bg-sand ${className ?? ""}`}>
+    <div className={`group relative overflow-hidden rounded-[28px] border border-outline-variant bg-surface-container ${className ?? ""}`}>
       <img src={src} alt={alt} className="h-full w-full object-cover" />
       <button
         type="button"

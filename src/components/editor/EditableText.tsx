@@ -32,7 +32,7 @@ export function EditableText({
   };
 
   if (isEditing) {
-    const fieldClassName = `${className ?? ""} w-full rounded-2xl border border-black/15 bg-white/95 px-3 py-2 outline-none ring-4 ring-black/5`;
+    const fieldClassName = `${className ?? ""} w-full rounded-2xl border border-outline-variant bg-surface/95 px-3 py-2 outline-none ring-4 ring-surface-variant`;
 
     if (multiline) {
       return createElement(as, {}, (
@@ -87,7 +87,7 @@ export function EditableText({
           setIsEditing(true);
         }
       }}
-      className="cursor-text rounded-lg transition hover:bg-black/5 focus:outline-none focus:ring-4 focus:ring-black/5"
+      className="cursor-text rounded-lg transition hover:bg-surface-variant focus:outline-none focus:ring-4 focus:ring-surface-variant"
     >
       {value || placeholder}
     </span>,

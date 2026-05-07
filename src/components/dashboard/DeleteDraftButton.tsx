@@ -10,6 +10,10 @@ export function DeleteDraftButton({ portfolioId, draftTitle }: { portfolioId: st
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const handleDelete = async () => {
+    if (isDeleting) {
+      return;
+    }
+
     const confirmed = window.confirm(`Delete "${draftTitle}"? This will permanently remove the saved draft.`);
 
     if (!confirmed) {
@@ -36,7 +40,7 @@ export function DeleteDraftButton({ portfolioId, draftTitle }: { portfolioId: st
         type="button"
         onClick={() => void handleDelete()}
         disabled={isDeleting}
-        className="inline-flex rounded-full border border-black/10 px-4 py-2.5 text-sm font-medium text-black transition-colors duration-150 hover:bg-black/[0.04] disabled:cursor-wait disabled:opacity-70"
+        className="inline-flex rounded-full items-center justify-center border border-outline-variant bg-white px-4 py-2.5 font-mono text-[11px] uppercase tracking-[0.22em] text-on-surface-variant transition-colors hover:border-[#ba1a1a] hover:text-[#ba1a1a] disabled:cursor-wait disabled:opacity-70"
       >
         {isDeleting ? "Deleting..." : "Delete"}
       </button>

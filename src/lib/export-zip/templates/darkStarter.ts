@@ -86,6 +86,12 @@ img {
   gap: 16px;
 }
 
+.support-grid {
+  display: grid;
+  gap: 12px;
+  margin-top: 24px;
+}
+
 .eyebrow,
 .section-label {
   display: inline-flex;
@@ -185,6 +191,7 @@ img {
 .social-card,
 .location-card,
 .availability-card,
+.support-card,
 .project-card,
 .skills-card,
 .experience-card,
@@ -196,17 +203,19 @@ img {
 .social-card,
 .location-card,
 .availability-card,
+.support-card,
 .project-card,
 .skills-card,
 .experience-card,
 .education-card {
-  background: rgba(255, 255, 255, 0.02);
+  background: rgba(255, 255, 255, 0.03);
   padding: 16px;
 }
 
 .social-card p,
 .location-card p,
 .availability-card p,
+.support-card p,
 .project-card p,
 .skills-card p,
 .experience-card p,
@@ -215,17 +224,28 @@ img {
 }
 
 .social-title,
-.location-value {
+.location-value,
+.support-title {
   font-size: 1rem;
   font-weight: 600;
 }
 
 .social-url,
 .meta-copy,
+.support-copy,
 .project-url,
 .period {
   margin-top: 8px;
   color: var(--muted);
+}
+
+.support-meta {
+  margin-top: 12px;
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
 }
 
 .project-grid,
@@ -322,6 +342,10 @@ img {
     grid-template-columns: 1.15fr 0.85fr;
   }
 
+  .support-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
   .about-grid {
     grid-template-columns: 0.85fr 1.15fr;
   }
@@ -366,6 +390,23 @@ function isLightColor(color: string) {
 
 export function PortfolioTemplate({ data }: { data: PortfolioData }) {
   const accent = data.theme.accentName === "monochrome" ? "#f3f4f6" : data.theme.accentColor;
+  const featuredExperience = data.experience[0];
+  const featuredEducation = data.education[0];
+  const featuredSkillGroup = data.skills[0];
+  const labels = {
+    heroExperienceLabel: data.templateLabels?.heroExperienceLabel ?? "Current role",
+    heroEducationLabel: data.templateLabels?.heroEducationLabel ?? "Education",
+    heroSkillsLabel: data.templateLabels?.heroSkillsLabel ?? "Core stack",
+    socialLinksLabel: data.templateLabels?.socialLinksLabel ?? "Social links",
+    aboutSkillsLabel: data.templateLabels?.aboutSkillsLabel ?? "Focus",
+    locationLabel: data.templateLabels?.locationLabel ?? "Location",
+    availabilityLabel: data.templateLabels?.availabilityLabel ?? "Availability",
+    projectsLabel: data.templateLabels?.projectsLabel ?? "Projects",
+    projectsTitle: data.templateLabels?.projectsTitle ?? "Featured work",
+    skillsLabel: data.templateLabels?.skillsLabel ?? "Skills",
+    experienceLabel: data.templateLabels?.experienceLabel ?? "Experience",
+    educationLabel: data.templateLabels?.educationLabel ?? "Education",
+  };
   const themeStyle = {
     ["--accent" as string]: accent,
     ["--accent-text" as string]: isLightColor(accent) ? "#111111" : "#ffffff",
@@ -391,6 +432,40 @@ export function PortfolioTemplate({ data }: { data: PortfolioData }) {
                   {data.hero.socialsLabel}
                 </a>
               </div>
+
+              <div className="support-grid">
+                {featuredExperience ? (
+                  <div className="support-card">
+                    <p className="section-label">{labels.heroExperienceLabel}</p>
+                    <p className="support-title" style={{ marginTop: 12 }}>{featuredExperience.role}</p>
+                    <p className="support-copy">{featuredExperience.company}</p>
+                    <p className="support-meta">{featuredExperience.period}</p>
+                  </div>
+                ) : null}
+
+                {featuredEducation ? (
+                  <div className="support-card">
+                    <p className="section-label">{labels.heroEducationLabel}</p>
+                    <p className="support-title" style={{ marginTop: 12 }}>{featuredEducation.degree}</p>
+                    <p className="support-copy">{featuredEducation.school}</p>
+                    <p className="support-meta">{featuredEducation.period}</p>
+                  </div>
+                ) : null}
+
+                {featuredSkillGroup ? (
+                  <div className="support-card">
+                    <p className="section-label">{labels.heroSkillsLabel}</p>
+                    <p className="support-title" style={{ marginTop: 12 }}>{featuredSkillGroup.title}</p>
+                    <div className="pill-list" style={{ marginTop: 12 }}>
+                      {featuredSkillGroup.items.slice(0, 4).map((item) => (
+                        <span key={item} className="pill">
+                          {item}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                ) : null}
+              </div>
             </div>
 
             <div className="hero-side">
@@ -398,7 +473,7 @@ export function PortfolioTemplate({ data }: { data: PortfolioData }) {
                 <img src={data.hero.profileImage} alt={data.hero.name} />
               </div>
               <div className="panel" style={{ background: "#111423" }}>
-                <p className="section-label">Social links</p>
+                <p className="section-label">{labels.socialLinksLabel}</p>
                 <div style={{ display: "grid", gap: 12, marginTop: 16 }}>
                   {data.socialLinks.map((link) => (
                     <div key={link.id} className="social-card">
@@ -415,23 +490,36 @@ export function PortfolioTemplate({ data }: { data: PortfolioData }) {
             <div className="panel">
               <h2 className="section-title" style={{ marginTop: 0 }}>{data.about.heading}</h2>
               <p className="copy">{data.about.body}</p>
+              {featuredSkillGroup ? (
+                <div className="support-card" style={{ marginTop: 24 }}>
+                  <p className="section-label">{labels.aboutSkillsLabel}</p>
+                  <p className="support-title" style={{ marginTop: 12 }}>{featuredSkillGroup.title}</p>
+                  <div className="pill-list" style={{ marginTop: 12 }}>
+                    {featuredSkillGroup.items.slice(0, 4).map((item) => (
+                      <span key={item} className="pill">
+                        {item}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              ) : null}
             </div>
 
             <div className="info-grid">
               <div className="location-card">
-                <p className="section-label">Location</p>
+                <p className="section-label">{labels.locationLabel}</p>
                 <p className="location-value" style={{ marginTop: 12 }}>{data.about.location}</p>
               </div>
               <div className="availability-card">
-                <p className="section-label">Availability</p>
+                <p className="section-label">{labels.availabilityLabel}</p>
                 <p className="meta-copy" style={{ marginTop: 12 }}>{data.about.availability}</p>
               </div>
             </div>
           </section>
 
           <section className="panel">
-            <p className="section-label">Projects</p>
-            <h2 className="section-title">Featured work</h2>
+            <p className="section-label">{labels.projectsLabel}</p>
+            <h2 className="section-title">{labels.projectsTitle}</h2>
             <div className="project-grid" style={{ marginTop: 24 }}>
               {data.projects.map((project) => (
                 <article key={project.id} className="project-card">
@@ -458,7 +546,7 @@ export function PortfolioTemplate({ data }: { data: PortfolioData }) {
 
           <section className="skills-grid">
             <div className="panel">
-              <p className="section-label">Skills</p>
+              <p className="section-label">{labels.skillsLabel}</p>
               <div style={{ display: "grid", gap: 16, marginTop: 20 }}>
                 {data.skills.map((group) => (
                   <div key={group.id} className="skills-card">
@@ -477,7 +565,7 @@ export function PortfolioTemplate({ data }: { data: PortfolioData }) {
 
             <div style={{ display: "grid", gap: 24 }}>
               <div className="panel">
-                <p className="section-label">Experience</p>
+                <p className="section-label">{labels.experienceLabel}</p>
                 <div className="experience-grid" style={{ marginTop: 20 }}>
                   {data.experience.map((item) => (
                     <div key={item.id} className="experience-card">
@@ -495,7 +583,7 @@ export function PortfolioTemplate({ data }: { data: PortfolioData }) {
               </div>
 
               <div className="panel">
-                <p className="section-label">Education</p>
+                <p className="section-label">{labels.educationLabel}</p>
                 <div className="education-grid" style={{ marginTop: 20 }}>
                   {data.education.map((item) => (
                     <div key={item.id} className="education-card">

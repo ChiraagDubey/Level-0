@@ -33,7 +33,7 @@ export function SignOutButton() {
         type="button"
         onClick={() => void handleSignOut()}
         disabled={isSigningOut}
-        className="block w-full rounded-full border border-black/10 px-4 py-3 text-center text-sm font-medium text-black disabled:cursor-wait disabled:opacity-70"
+        className="block w-full rounded-full border border-outline-variant bg-white px-4 py-3 text-center font-mono text-[11px] uppercase tracking-[0.22em] text-on-surface-variant transition-colors hover:border-secondary hover:text-secondary disabled:cursor-wait disabled:opacity-70"
       >
         {isSigningOut ? "Signing out..." : "Sign Out"}
       </button>

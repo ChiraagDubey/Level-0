@@ -73,6 +73,22 @@ export interface FooterSection {
   watermark: string;
 }
 
+export interface TemplateLabels {
+  heroExperienceLabel?: string;
+  heroEducationLabel?: string;
+  heroSkillsLabel?: string;
+  quickFactsLabel?: string;
+  socialLinksLabel?: string;
+  aboutSkillsLabel?: string;
+  locationLabel?: string;
+  availabilityLabel?: string;
+  projectsLabel?: string;
+  projectsTitle?: string;
+  skillsLabel?: string;
+  experienceLabel?: string;
+  educationLabel?: string;
+}
+
 export interface PortfolioData {
   templateId: string;
   theme: PortfolioTheme;
@@ -85,6 +101,7 @@ export interface PortfolioData {
   socialLinks: SocialLink[];
   contact: ContactSection;
   footer: FooterSection;
+  templateLabels?: TemplateLabels;
 }
 
 export interface TemplateMetadata {

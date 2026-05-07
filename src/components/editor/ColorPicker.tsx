@@ -20,10 +20,10 @@ export function ColorPicker({ presets, currentColor, onChange }: ColorPickerProp
             type="button"
             onClick={() => onChange(preset)}
             className={`flex items-center gap-3 rounded-2xl border px-3 py-2 text-left text-sm transition ${
-              isActive ? "border-black bg-black text-white" : "border-black/10 bg-white hover:border-black/20"
+              isActive ? "border-primary bg-primary text-on-primary" : "border-outline-variant bg-surface text-on-surface hover:border-outline"
             }`}
           >
-            <span className="h-4 w-4 rounded-full border border-black/10" style={{ backgroundColor: preset.value }} />
+            <span className={`h-4 w-4 rounded-full border ${isActive ? "border-on-primary/20" : "border-outline-variant"}`} style={{ backgroundColor: preset.value }} />
             <span>{preset.label}</span>
           </button>
         );

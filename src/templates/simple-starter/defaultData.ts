@@ -127,7 +127,7 @@ export const defaultPortfolioData: PortfolioData = {
     },
   ],
   contact: {
-    heading: "Let’s build something useful.",
+    heading: "Let's build something useful.",
     email: "maya@example.com",
     message: "If you need a sharp MVP, a stronger editing experience, or a portfolio that ships cleanly, reach out.",
     ctaLabel: "Email Me",
@@ -135,5 +135,18 @@ export const defaultPortfolioData: PortfolioData = {
   footer: {
     note: "Built to show your work without the setup spiral.",
     watermark: "Built with LEVEL 0",
+  },
+  templateLabels: {
+    heroExperienceLabel: "Current role",
+    heroEducationLabel: "Education",
+    heroSkillsLabel: "Core stack",
+    quickFactsLabel: "Quick facts",
+    socialLinksLabel: "Social links",
+    aboutSkillsLabel: "Strengths",
+    projectsLabel: "Projects",
+    projectsTitle: "Selected work",
+    skillsLabel: "Skills",
+    experienceLabel: "Experience",
+    educationLabel: "Education",
   },
 };

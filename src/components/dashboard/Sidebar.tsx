@@ -4,11 +4,10 @@ import { AuthButtons } from "@/components/auth/AuthButtons";
 import { SignOutButton } from "@/components/auth/SignOutButton";
 
 const navItems = [
-  { label: "Templates", active: true },
-  { label: "Drafts", active: false },
-  { label: "Import Website", active: false },
-  { label: "Account", active: false },
-  { label: "Billing", active: false },
+  { label: "Dashboard", href: "/dashboard" },
+  { label: "Templates", href: "#template-selection" },
+  { label: "Drafts", href: "#saved-drafts" },
+  { label: "Account", href: "#account" },
 ];
 
 const planFeatures = ["6 templates unlocked", "Watermarked ZIP export", "Pro features coming soon"];
@@ -18,84 +17,110 @@ function getUserDisplayName(user: User) {
   return typeof metadataName === "string" && metadataName.trim().length > 0 ? metadataName : user.email ?? "Signed In User";
 }
 
+function getInitials(value: string) {
+  return value
+    .split(" ")
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((part) => part.charAt(0).toUpperCase())
+    .join("");
+}
+
 export function Sidebar({ user }: { user: User | null }) {
   const isSignedIn = Boolean(user);
   const userDisplayName = user ? getUserDisplayName(user) : "Guest Builder";
 
   return (
-    <aside className="panel flex h-full flex-col gap-8 p-5 md:p-6">
-      <div className="space-y-4">
-        <div>
-          <p className="font-mono text-xs uppercase tracking-[0.25em] text-black/50">Workspace</p>
-          <h2 className="mt-2 text-2xl font-semibold tracking-[-0.04em]">{userDisplayName}</h2>
-          <p className="text-sm text-black/60">{user?.email ?? "Free Workspace"}</p>
+    <aside className="self-start rounded-2xl border border-outline-variant bg-surface-container shadow-[0_20px_55px_rgba(31,33,30,0.05)] lg:sticky lg:top-6">
+      <div className="flex flex-col gap-6 p-5 md:p-6">
+        <div className="flex items-center gap-3 border-b border-outline-variant pb-5">
+          <div className="flex h-11 w-11 items-center justify-center rounded-full border border-outline-variant bg-white font-mono text-sm uppercase tracking-[0.22em] text-secondary">
+            {getInitials(userDisplayName) || "G"}
+          </div>
+          <div className="min-w-0">
+            <p className="font-mono text-[11px] uppercase tracking-[0.24em] text-secondary">Workspace</p>
+            <h2 className="truncate text-xl font-semibold tracking-[-0.04em] text-on-background">{userDisplayName}</h2>
+            <p className="truncate text-sm text-on-surface-variant">{user?.email ?? "Free Workspace"}</p>
+          </div>
         </div>
-        <div className="rounded-[24px] border border-black/5 bg-sand p-4 text-sm leading-7 text-black/65">
+
+        <div className="rounded-xl border border-secondary/20 bg-secondary-container/20 p-4 text-sm leading-7 text-on-surface-variant">
           <p>
             {isSignedIn
-              ? "Your account is connected. Portfolio saving and workspace persistence can land on top of this next."
-              : "Build, preview, and export portfolios locally. Sign in to connect your account before saved work arrives."}
+              ? "Your account is connected. Saved drafts, editor access, and sign-out remain on the same existing flows."
+              : "Browse templates publicly, then sign in with Google or GitHub before creating saved drafts."}
           </p>
         </div>
-      </div>
 
-      <nav className="space-y-2">
-        {navItems.map((item) => (
-          <div
-            key={item.label}
-            className={[
-              "rounded-2xl px-4 py-3 text-sm transition-colors",
-              item.active
-                ? "border border-black/10 bg-black text-white shadow-[0_14px_34px_rgba(15,23,42,0.08)]"
-                : "border border-black/10 bg-white text-black/70",
-            ].join(" ")}
-          >
-            <div className="flex items-center justify-between gap-3">
-              <span className={item.active ? "font-medium" : ""}>{item.label}</span>
-              {item.active ? (
-                <span className="rounded-full bg-white/14 px-2 py-1 text-[10px] font-mono uppercase tracking-[0.18em] text-white/85">
-                  Live
-                </span>
-              ) : null}
-            </div>
-          </div>
-        ))}
-      </nav>
+        <nav className="space-y-2">
+          {navItems.map((item, index) => {
+            const isPrimary = index === 0;
 
-      <div className="mt-auto space-y-3">
-        {isSignedIn ? (
-          <div className="rounded-[24px] border border-black/10 bg-white p-4">
-            <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-black/45">Signed In</p>
-            <p className="mt-3 text-sm font-medium text-black/80">{userDisplayName}</p>
-            <p className="mt-1 text-sm text-black/55">{user?.email}</p>
-          </div>
-        ) : (
-          <div className="rounded-[24px] border border-black/10 bg-white p-4">
-            <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-black/45">Sign In</p>
-            <p className="mt-3 text-sm leading-7 text-black/65">Connect Google or GitHub to attach a real account to the dashboard.</p>
-            <div className="mt-4">
-              <AuthButtons />
+            return (
+              <a
+                key={item.label}
+                href={item.href}
+                className={[
+                  "flex items-center rounded-xl justify-between border px-4 py-3 font-mono text-[11px] uppercase tracking-[0.22em] transition-colors",
+                  isPrimary
+                    ? "border-secondary bg-secondary/10 text-secondary"
+                    : "border-outline-variant bg-white text-on-surface-variant hover:border-secondary hover:text-secondary",
+                ].join(" ")}
+              >
+                <span>{item.label}</span>
+                <span>{isPrimary ? "LIVE" : "->"}</span>
+              </a>
+            );
+          })}
+        </nav>
+
+        <div id="account" className="space-y-4">
+          {isSignedIn ? (
+            <div className="rounded-xl border border-outline-variant bg-white p-4">
+              <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-secondary">Signed In</p>
+              <p className="mt-3 text-sm font-medium text-on-background">{userDisplayName}</p>
+              <p className="mt-1 text-sm text-on-surface-variant">{user?.email}</p>
             </div>
-          </div>
-        )}
-        <div className="rounded-[24px] border border-black/10 bg-white p-4">
-          <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-black/45">Free Plan</p>
-          <div className="mt-3 space-y-2 text-sm text-black/70">
-            {planFeatures.map((feature) => (
-              <div key={feature} className="flex items-center gap-3">
-                <span className="h-2 w-2 rounded-full bg-black/70" />
-                <span>{feature}</span>
+          ) : (
+            <div className="rounded-xl border border-outline-variant bg-white p-4">
+              <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-secondary">Sign In</p>
+              <p className="mt-3 text-sm leading-7 text-on-surface-variant">
+                Connect Google or GitHub to unlock the protected editor and saved draft flow.
+              </p>
+              <div className="mt-4">
+                <AuthButtons />
               </div>
-            ))}
+            </div>
+          )}
+
+          <div className="rounded-xl border border-outline-variant bg-white p-4">
+            <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-secondary">Free Plan</p>
+            <div className="mt-3 space-y-2 text-sm text-on-surface-variant">
+              {planFeatures.map((feature) => (
+                <div key={feature} className="flex items-center gap-3">
+                  <span className="h-2 w-2 rounded-full bg-secondary" />
+                  <span>{feature}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="space-y-3">
+            <Link
+              href="/"
+              className="block rounded-full border border-outline-variant bg-white px-4 py-3 text-center font-mono text-[11px] uppercase tracking-[0.22em] text-on-surface-variant transition-colors hover:border-secondary hover:text-secondary"
+            >
+              Back to Home
+            </Link>
+            <Link
+              href="/editor?template=simple-starter"
+              className="block rounded-full border border-secondary bg-secondary px-4 py-3 text-center font-mono text-[11px] uppercase tracking-[0.22em] text-white transition-colors hover:bg-secondary"
+            >
+              Open Editor
+            </Link>
+            {isSignedIn ? <SignOutButton /> : null}
           </div>
         </div>
-        <Link href="/" className="block rounded-full border border-black/10 px-4 py-3 text-center text-sm font-medium">
-          Back to Home
-        </Link>
-        <Link href="/editor?template=simple-starter" className="block rounded-full bg-ink px-4 py-3 text-center text-sm font-medium text-white">
-          Open Editor
-        </Link>
-        {isSignedIn ? <SignOutButton /> : null}
       </div>
     </aside>
   );

@@ -3,23 +3,52 @@ import type { User } from "@supabase/supabase-js";
 
 export function CTA({ user }: { user: User | null }) {
   return (
-    <section className="shell py-8 pb-14 md:pb-16">
-      <div className="rounded-[32px] bg-ink px-6 py-10 text-white md:px-10">
-        <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
-          <div className="space-y-3">
-            <span className="pill border-white/15 bg-white/5 text-white/70">MVP Milestone</span>
-            <h2 className="max-w-2xl text-4xl font-semibold tracking-[-0.05em] md:text-5xl">
-              LEVEL 0 keeps the first release local, focused, and exportable.
-            </h2>
+    <>
+      <section className="bg-secondary">
+        <div className="mx-auto max-w-[1280px] px-6 py-16 text-center text-white lg:px-8 lg:py-20">
+          <p className="font-mono text-[11px] uppercase tracking-[0.26em] text-white/80">Initialize your career.</p>
+          <h2 className="mt-4 text-4xl font-semibold uppercase tracking-[-0.05em] sm:text-5xl">
+            Build a portfolio that starts finished.
+          </h2>
+          <p className="mx-auto mt-4 max-w-2xl text-sm leading-7 text-white/80 md:text-base">
+            Choose a template, edit your mapped content visually, save drafts as you go, and export a clean ZIP when
+            the portfolio is ready to ship.
+          </p>
+          <div className="mt-8 flex justify-center">
+            <Link
+              href={user ? "/dashboard" : "#start"}
+              className="inline-flex items-center justify-center border border-white bg-white px-6 py-3 font-mono text-[11px] uppercase tracking-[0.22em] text-secondary transition-colors hover:bg-[#eaf7f8]"
+            >
+              {user ? "Open Dashboard" : "Start Free"}
+            </Link>
           </div>
-          <Link
-            href={user ? "/dashboard" : "/"}
-            className="inline-flex h-fit rounded-full bg-white px-5 py-3 text-sm font-medium text-ink transition hover:translate-y-[-1px]"
-          >
-            {user ? "Open Dashboard" : "Sign In to Start"}
-          </Link>
         </div>
-      </div>
-    </section>
+      </section>
+
+      <footer className="border-t border-outline-variant bg-background">
+        <div className="mx-auto flex max-w-[1280px] flex-col gap-5 px-6 py-8 lg:flex-row lg:items-center lg:justify-between lg:px-8">
+          <div>
+            <p className="font-mono text-[11px] uppercase tracking-[0.26em] text-secondary">LEVEL 0 ARCHITECTS</p>
+            <p className="mt-2 text-xs uppercase tracking-[0.18em] text-outline">
+              LEVEL 0 portfolio builder. Templates, saved drafts, and exportable portfolio code.
+            </p>
+          </div>
+          <div className="flex flex-wrap gap-5 font-mono text-[11px] uppercase tracking-[0.22em] text-on-surface-variant">
+            <a href="#templates" className="transition-colors hover:text-secondary">
+              Templates
+            </a>
+            <a href="#features" className="transition-colors hover:text-secondary">
+              Features
+            </a>
+            <a href="#how-it-works" className="transition-colors hover:text-secondary">
+              Workflow
+            </a>
+            <Link href="/dashboard" className="transition-colors hover:text-secondary">
+              Dashboard
+            </Link>
+          </div>
+        </div>
+      </footer>
+    </>
   );
 }

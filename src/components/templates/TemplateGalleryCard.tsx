@@ -3,6 +3,7 @@ import type { User } from "@supabase/supabase-js";
 import { createPortfolioFromTemplate } from "@/app/actions/portfolios";
 import type { TemplateGalleryEntry } from "@/lib/templates";
 import { TemplatePreview } from "@/components/templates/TemplatePreview";
+import { UseTemplateSubmitButton } from "@/components/templates/UseTemplateSubmitButton";
 
 export function TemplateGalleryCard({
   template,
@@ -17,42 +18,35 @@ export function TemplateGalleryCard({
   const editorHref = `/editor?template=${template.id}`;
   const actionHref = user ? editorHref : `/?redirect=${encodeURIComponent(editorHref)}`;
   const createPortfolioAction = createPortfolioFromTemplate.bind(null, template.id);
+  const actionButtonClassName = "w-full items-center justify-center border border-secondary bg-secondary px-4 py-3 text-white hover:bg-secondary";
 
   return (
-    <article
-      className={`overflow-hidden rounded-[28px] border border-black/10 bg-white shadow-[0_20px_60px_rgba(17,17,17,0.06)] ${
-        isDashboard ? "p-4 md:p-5" : ""
-      }`}
-    >
-      <div className={isDashboard ? "grid gap-5 md:grid-cols-[240px_1fr] md:items-start" : ""}>
+    <article className="overflow-hidden rounded-2xl border border-outline-variant bg-white shadow-[0_18px_50px_rgba(31,33,30,0.07)] transition-all duration-300 hover:-translate-y-2 hover:shadow-xl">
+      <div className={isDashboard ? "flex flex-col" : "flex flex-col"}>
+        <div className="relative">
         <TemplatePreview gallery={template.gallery} />
-        <div className={isDashboard ? "space-y-4" : "space-y-4 p-6"}>
-          <div className="flex flex-wrap gap-2">
-            <span className="inline-flex rounded-full border border-emerald-600/15 bg-emerald-500/10 px-3 py-1 text-[11px] font-mono uppercase tracking-[0.22em] text-emerald-700">
-              {template.gallery.plan}
-            </span>
-          </div>
+          <span className="absolute right-4 top-4 inline-flex rounded-full border border-secondary bg-secondary px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.2em] text-white">
+            FREE
+          </span>
+        </div>
+        <div className={isDashboard ? "space-y-4 p-4" : "space-y-4 p-5"}>
           <div className="space-y-2">
-            <h3 className="text-2xl font-semibold tracking-[-0.04em] text-black">{template.name}</h3>
-            <p className="text-sm leading-7 text-black/65">{template.description}</p>
+            <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-on-surface-variant">{template.gallery.bestFor}</p>
+            <h3 className="text-2xl font-semibold uppercase tracking-[-0.04em] text-on-background">{template.name}</h3>
+            <p className="text-sm leading-7 text-on-surface-variant">{template.description}</p>
           </div>
-          <div className="rounded-[20px] border border-black/[0.08] bg-[#f7f1e7] px-4 py-3">
-            <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-black/45">Best for</p>
-            <p className="mt-1 text-sm font-medium text-black/75">{template.gallery.bestFor}</p>
+          <div className="rounded-xl border border-outline-variant bg-background px-4 py-3">
+            <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-secondary">Use case</p>
+            <p className="mt-1 text-sm font-medium text-on-surface-variant">{template.gallery.bestFor}</p>
           </div>
           {user ? (
             <form action={createPortfolioAction}>
-              <button
-                type="submit"
-                className="inline-flex rounded-full bg-ink px-4 py-2.5 text-sm font-medium text-white transition-transform duration-150 hover:-translate-y-0.5"
-              >
-                Use Template
-              </button>
+              <UseTemplateSubmitButton className={`${actionButtonClassName} rounded-full`} />
             </form>
           ) : (
             <Link
               href={actionHref}
-              className="inline-flex rounded-full bg-ink px-4 py-2.5 text-sm font-medium text-white transition-transform duration-150 hover:-translate-y-0.5"
+              className="inline-flex w-full rounded-full items-center justify-center border border-secondary bg-secondary px-4 py-3 font-mono text-[11px] uppercase tracking-[0.22em] text-white transition-colors hover:bg-secondary"
             >
               Use Template
             </Link>

@@ -39,8 +39,8 @@ export function EditorToolbar({
 }: EditorToolbarProps) {
   const isSavedMode = mode === "saved";
   const exportButtonClassName = exportSupported
-    ? "rounded-full bg-ink px-4 py-2.5 text-sm font-medium text-white disabled:cursor-wait disabled:opacity-70"
-    : "rounded-full border border-black/10 bg-white px-4 py-2.5 text-sm font-medium text-black/50 disabled:cursor-not-allowed disabled:opacity-100";
+    ? "rounded-full bg-primary px-4 py-2.5 text-sm font-medium text-on-primary disabled:cursor-wait disabled:opacity-70 transition-colors hover:bg-primary/90"
+    : "rounded-full border border-outline-variant bg-surface px-4 py-2.5 text-sm font-medium text-on-surface-variant disabled:cursor-not-allowed disabled:opacity-100";
   const saveButtonLabel = isUploadingImage
     ? "Uploading image..."
     : saveStatus === "saving"
@@ -56,14 +56,14 @@ export function EditorToolbar({
       <div className="flex flex-col gap-5">
         <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
           <div>
-            <p className="font-mono text-xs uppercase tracking-[0.24em] text-black/45">Editor</p>
-            <h1 className="mt-2 text-3xl font-semibold tracking-[-0.04em]">{templateName}</h1>
-            <p className="mt-2 max-w-2xl text-sm leading-7 text-black/65">
+            <p className="font-mono text-xs uppercase tracking-[0.24em] text-on-surface-variant">Editor</p>
+            <h1 className="mt-2 text-3xl font-semibold tracking-[-0.04em] text-on-surface">{templateName}</h1>
+            <p className="mt-2 max-w-2xl text-sm leading-7 text-on-surface-variant">
               Click mapped text, replace images, change accent color, and export a standalone portfolio ZIP.
             </p>
           </div>
           <div className="flex gap-3">
-            <Link href="/dashboard" className="rounded-full border border-black/10 px-4 py-2.5 text-sm font-medium">
+            <Link href="/dashboard" className="rounded-full border border-outline-variant bg-surface px-4 py-2.5 text-sm font-medium text-on-surface hover:bg-surface-variant transition-colors">
               Dashboard
             </Link>
             {isSavedMode ? (
@@ -71,7 +71,7 @@ export function EditorToolbar({
                 type="button"
                 onClick={onSave}
                 disabled={saveStatus === "saving" || isUploadingImage}
-                className="rounded-full border border-black/10 bg-white px-4 py-2.5 text-sm font-medium text-black disabled:cursor-wait disabled:opacity-70"
+                className="rounded-full border border-outline-variant bg-surface px-4 py-2.5 text-sm font-medium text-on-surface hover:bg-surface-variant transition-colors disabled:cursor-wait disabled:opacity-70"
               >
                 {saveButtonLabel}
               </button>
@@ -87,27 +87,27 @@ export function EditorToolbar({
           </div>
         </div>
 
-        {exportNote ? <p className="text-sm text-black/55">{exportNote}</p> : null}
+        {exportNote ? <p className="text-sm text-on-surface-variant">{exportNote}</p> : null}
         {saveMessage ? (
-          <p className={`text-sm ${saveStatus === "error" ? "text-[#b42318]" : "text-black/55"}`}>{saveMessage}</p>
+          <p className={`text-sm ${saveStatus === "error" ? "text-error" : "text-on-surface-variant"}`}>{saveMessage}</p>
         ) : null}
         {imageUploadMessage ? (
-          <p className={`text-sm ${imageUploadStatus === "error" ? "text-[#b42318]" : "text-black/55"}`}>{imageUploadMessage}</p>
+          <p className={`text-sm ${imageUploadStatus === "error" ? "text-error" : "text-on-surface-variant"}`}>{imageUploadMessage}</p>
         ) : null}
 
-        <div className="grid gap-4 rounded-[24px] bg-sand/70 p-4 md:grid-cols-[0.7fr_1.3fr]">
+        <div className="grid gap-4 rounded-[24px] bg-surface-container p-4 md:grid-cols-[0.7fr_1.3fr]">
           <div>
-            <p className="font-mono text-xs uppercase tracking-[0.24em] text-black/45">
+            <p className="font-mono text-xs uppercase tracking-[0.24em] text-on-surface-variant">
               {isSavedMode ? "Saved Draft Mode" : "Local Mode"}
             </p>
-            <p className="mt-2 text-sm leading-7 text-black/65">
+            <p className="mt-2 text-sm leading-7 text-on-surface-variant">
               {isSavedMode
                 ? "Manual save is enabled for this draft. Replaced images upload to Storage before save."
                 : "Create a saved draft from Dashboard to persist changes."}
             </p>
           </div>
           <div>
-            <p className="mb-3 font-mono text-xs uppercase tracking-[0.24em] text-black/45">Accent presets</p>
+            <p className="mb-3 font-mono text-xs uppercase tracking-[0.24em] text-on-surface-variant">Accent presets</p>
             <ColorPicker presets={COLOR_PRESETS} currentColor={accentColor} onChange={onAccentColorChange} />
           </div>
         </div>

@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Space+Grotesk:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container": "#f0eee9",
+                        "on-background": "#1b1c19",
+                        "surface-container-lowest": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "secondary": "#1f686f",
+                        "primary-fixed-dim": "#ffb77f",
+                        "error-container": "#ffdad6",
+                        "surface-dim": "#dbdad5",
+                        "on-primary-container": "#ffc69b",
+                        "outline-variant": "#d8c2b4",
+                        "inverse-on-surface": "#f2f1ec",
+                        "secondary-fixed-dim": "#8fd1da",
+                        "surface-container-low": "#f5f3ee",
+                        "surface-container-highest": "#e4e2dd",
+                        "on-secondary-fixed": "#001f23",
+                        "tertiary-fixed": "#e2e2e8",
+                        "on-surface": "#1b1c19",
+                        "primary": "#683500",
+                        "on-surface-variant": "#534439",
+                        "outline": "#867467",
+                        "inverse-primary": "#ffb77f",
+                        "on-tertiary-fixed-variant": "#45474b",
+                        "tertiary": "#414347",
+                        "on-tertiary-fixed": "#1a1c20",
+                        "background": "#fbf9f4",
+                        "on-secondary-fixed-variant": "#004f56",
+                        "on-secondary": "#ffffff",
+                        "on-tertiary-container": "#d1d1d7",
+                        "surface-container-high": "#eae8e3",
+                        "tertiary-container": "#585a5f",
+                        "surface": "#fbf9f4",
+                        "surface-variant": "#e4e2dd",
+                        "on-primary-fixed-variant": "#6f3900",
+                        "on-primary-fixed": "#2f1500",
+                        "tertiary-fixed-dim": "#c6c6cc",
+                        "secondary-fixed": "#abeef6",
+                        "on-tertiary": "#ffffff",
+                        "primary-container": "#884a0c",
+                        "on-primary": "#ffffff",
+                        "on-error": "#ffffff",
+                        "on-secondary-container": "#256c74",
+                        "error": "#ba1a1a",
+                        "inverse-surface": "#30312e",
+                        "primary-fixed": "#ffdcc3",
+                        "surface-tint": "#8e4e11",
+                        "secondary-container": "#a8ebf4",
+                        "surface-bright": "#fbf9f4"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "sm": "16px",
+                        "md": "24px",
+                        "lg": "48px",
+                        "gutter": "24px",
+                        "xs": "8px",
+                        "base": "4px",
+                        "xl": "80px",
+                        "container-max": "1280px"
+                    },
+                    "fontFamily": {
+                        "terminal-lg": ["Space Grotesk"],
+                        "terminal-sm": ["Space Grotesk"],
+                        "h1": ["Space Grotesk"],
+                        "body-main": ["Inter"],
+                        "h2": ["Space Grotesk"],
+                        "caption": ["Inter"]
+                    },
+                    "fontSize": {
+                        "terminal-lg": ["18px", {"lineHeight": "1.4", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "terminal-sm": ["13px", {"lineHeight": "1.2", "fontWeight": "400"}],
+                        "h1": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-main": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "h2": ["32px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                        "caption": ["12px", {"lineHeight": "1.4", "fontWeight": "500"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .blinking-cursor::after {
+            content: '|';
+            animation: blink 1s step-start infinite;
+        }
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+        body {
+            min-height: 100vh;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-main selection:bg-secondary-container selection:text-on-secondary-container">
+<!-- TopAppBar -->
+<header class="fixed top-0 left-0 right-0 z-50 bg-surface/80 backdrop-blur-md border-b border-outline-variant h-20">
+<div class="flex justify-between items-center w-full px-gutter max-w-[1440px] mx-auto h-full">
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-secondary" data-icon="terminal">terminal</span>
+<span class="font-h2 text-h2 font-bold text-secondary">LEVEL 0</span>
+</div>
+<div class="flex items-center gap-md">
+<button class="font-terminal-sm text-terminal-sm uppercase tracking-widest text-secondary hover:opacity-80 transition-all rounded-full">SIGN IN</button>
+</div>
+</div>
+</header>
+<!-- Persistent Sidebar -->
+<aside class="fixed left-0 top-0 h-full z-40 flex flex-col pt-20 pb-md bg-surface-container border-r border-outline-variant w-64 hidden lg:flex">
+<div class="px-gutter py-lg flex flex-col gap-xs">
+<div class="flex items-center gap-sm">
+<div class="w-10 h-10 rounded-lg bg-surface-container-highest border border-outline-variant flex items-center justify-center overflow-hidden">
+<img alt="User Profile Avatar" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD00Faq6y2FTMjDUGbkZKDUyie598mHaK9jYM-Bk947VlDvZWdAtL-r8del7MC4n0G65WemZPofyZG7nKT9PUnFZjljK7hWoEoyUXc5Qxzcy1X5dKbiXZ6vbWbr4B3CyPbV3Zi91jEzJ4wns6j0aUlLnJsQLIV97OYEGV9ecoJfscuE8XiK1lxj7VK9Kh5DLO3_eXiuqfTLAlCg50mo_hb1HVUYlufrnAaqv5-J-55M7J9g_8k_SHOfg68zFTgU8kxk-UKg0OrEw5tG"/>
+</div>
+<div class="flex flex-col">
+<span class="font-terminal-sm text-terminal-sm text-on-surface font-bold">User_Admin</span>
+<span class="text-[10px] text-on-surface-variant/60 uppercase tracking-tighter">&gt; online</span>
+</div>
+</div>
+<!-- Free Plan Card -->
+<div class="mt-md p-sm bg-secondary-container/20 border border-secondary/20 rounded-lg">
+<div class="flex justify-between items-start mb-xs">
+<span class="font-terminal-sm text-[11px] text-on-secondary-container font-bold uppercase">Free Plan</span>
+<span class="material-symbols-outlined text-secondary text-sm" data-icon="bolt" style="font-variation-settings: 'FILL' 1;">bolt</span>
+</div>
+<p class="text-[11px] text-on-surface-variant leading-tight">3/5 projects remaining in this cycle.</p>
+<button class="mt-xs text-[10px] text-secondary font-bold uppercase tracking-widest hover:underline">UPGRADE _</button>
+</div>
+</div>
+<nav class="flex-1 flex flex-col mt-md">
+<a class="flex items-center gap-xs bg-secondary/10 text-secondary border-l-4 border-secondary px-4 py-3 font-terminal-sm text-terminal-sm transition-all active:translate-x-1 duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span>Dashboard</span>
+</a>
+<a class="flex items-center gap-xs text-on-surface-variant px-4 py-3 hover:bg-black/5 font-terminal-sm text-terminal-sm transition-all hover:border-r-2 hover:border-secondary" href="#">
+<span class="material-symbols-outlined" data-icon="drafts">drafts</span>
+<span>My Drafts</span>
+</a>
+<a class="flex items-center gap-xs text-on-surface-variant px-4 py-3 hover:bg-black/5 font-terminal-sm text-terminal-sm transition-all hover:border-r-2 hover:border-secondary" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span>Account</span>
+</a>
+</nav>
+</aside>
+<!-- Main Content -->
+<main class="lg:ml-64 pt-20 min-h-screen">
+<div class="max-w-[1440px] mx-auto px-gutter py-xl lg:px-lg">
+<!-- Welcome Header -->
+<section class="mb-xl">
+<div class="flex flex-col gap-xs">
+<div class="flex items-center gap-xs text-secondary font-terminal-sm text-terminal-sm">
+<span>&gt; ROOT / USER / ALEX</span>
+<span class="w-2 h-4 bg-secondary animate-pulse"></span>
+</div>
+<h1 class="font-h1 text-h1 text-on-surface mt-base">Welcome back, Alex 👋</h1>
+<p class="text-on-surface-variant font-body-main text-body-main max-w-3xl blinking-cursor">Choose a template to create a saved portfolio or open a saved draft.</p>
+</div>
+</section>
+<!-- Template Selection (3-column grid) -->
+<section class="mb-xl">
+<div class="flex items-center justify-between border-b border-outline-variant pb-sm mb-lg">
+<h2 class="font-terminal-lg text-terminal-lg uppercase tracking-widest text-secondary">&gt; TEMPLATE_SELECTION</h2>
+<a class="text-terminal-sm font-terminal-sm text-secondary hover:underline" href="#">VIEW ALL TEMPLATES -&gt;</a>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-md lg:gap-gutter">
+<!-- Template Card 1 -->
+<div class="group bg-surface-container-low border border-outline-variant rounded-lg overflow-hidden hover:border-secondary transition-all">
+<div class="aspect-video relative overflow-hidden bg-surface-container-highest">
+<img alt="Simple Starter Template" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBJKVG17eXhnXN0GhuB6RLOJkKNoeI3P37UeHMW6C5PRZvWaF598nCqREyEjRp9uaWLKK-kt54FWSB4Wq3gnexJVvX7uoVA2hZw-Uyo2Otx5riRXqFAHNdj5AhCkML36OZxCMsF_LTOKEVYtxUadAs4yc4LshByzI7ks8r4azaRvPr2qP7ADWwzR0VSfzK_C2r0CwpROP49MWQXXmJLg_a3r_3jA481fSY0Qx5XW4jcYyUddkbaVGT8Wrak9GKIGbTBiSdvIr3d5ric"/>
+<div class="absolute inset-0 bg-secondary/10 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+<button class="bg-secondary text-on-secondary px-md py-sm font-terminal-sm font-bold uppercase rounded shadow-lg transition-transform active:scale-95 rounded-full">SELECT TEMPLATE</button>
+</div>
+</div>
+<div class="p-sm flex justify-between items-center flex-wrap">
+<span class="font-terminal-sm text-on-surface font-bold">Simple Starter</span><p class="text-[11px] text-on-surface-variant mt-1 leading-relaxed block w-full">A clean, minimal layout for any project.</p>
+<span class="text-[10px] text-on-surface-variant uppercase bg-black/5 px-xs py-0.5 rounded">MODERNIST</span>
+</div>
+</div>
+<!-- Template Card 2 -->
+<div class="group bg-surface-container-low border border-outline-variant rounded-lg overflow-hidden hover:border-secondary transition-all">
+<div class="aspect-video relative overflow-hidden bg-surface-container-highest">
+<img alt="Dark Starter Template" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB8Ba93DUpkO8aI7XkPC0pSxHg0TPX_lQKFl5mPjXtYNrWT110gKft7dNbGRFJxpJ9ueHsB5uDyx0038Ey-SC-DTD5B9xBnqbIdFmMdaPIpL-whw8P-myYgH-eyWmCPfWHi9MOnuQ26ctUO2D04kIv8YIXAgzzMyrEMs1QDMdD8ou95_d4WvwyZ1SrzffNLzoayOprQs4H-SpRTCJIXNPpduBJBzruHdh2HfIwb-yRr2xXYzREjNbpNTcK47fju0yyzLt70ivYudY1k"/>
+<div class="absolute inset-0 bg-secondary/10 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+<button class="bg-secondary text-on-secondary px-md py-sm font-terminal-sm font-bold uppercase rounded shadow-lg transition-transform active:scale-95 rounded-full">SELECT TEMPLATE</button>
+</div>
+</div>
+<div class="p-sm flex justify-between items-center flex-wrap">
+<span class="font-terminal-sm text-on-surface font-bold">Dark Starter</span><p class="text-[11px] text-on-surface-variant mt-1 leading-relaxed block w-full">High-contrast dark mode for digital artists.</p>
+<span class="text-[10px] text-on-surface-variant uppercase bg-black/5 px-xs py-0.5 rounded">RETRO-FUTURIST</span>
+</div>
+</div>
+<!-- Template Card 3 -->
+<div class="group bg-surface-container-low border border-outline-variant rounded-lg overflow-hidden hover:border-secondary transition-all">
+<div class="aspect-video relative overflow-hidden bg-surface-container-highest">
+<img alt="Architect Elite Template" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCK1PVHEx7gcPRyjkSlLIVyRwIcImh7LSBBmcxbxMJ4-ZW9XuQIn8xya4XH9vDgTaon7t4W1NYfC0681gRocuSreSaHthfvkZpZTmZrGvL3xFpisN0ICG4qnG5n7wbZOvE-90qcp-Nhv_S6kp3oqrHOXhl2-JskBUIW9Juouj5p27kRY1INawBOab5t0zBNYeqdRvFkqLjJOFTWAH1UdB7B-0mvvdgWxaGIw1CngRLUJbUzua7KQ09JdghEEU5kN2-UiEiTniYaNjjX"/>
+<div class="absolute inset-0 bg-secondary/10 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+<button class="bg-secondary text-on-secondary px-md py-sm font-terminal-sm font-bold uppercase rounded shadow-lg transition-transform active:scale-95 rounded-full">SELECT TEMPLATE</button>
+</div>
+</div>
+<div class="p-sm flex justify-between items-center flex-wrap">
+<span class="font-terminal-sm text-on-surface font-bold">Architect Elite</span><p class="text-[11px] text-on-surface-variant mt-1 leading-relaxed block w-full">Premium layout with sophisticated typography.</p>
+<span class="text-[10px] text-on-surface-variant uppercase bg-black/5 px-xs py-0.5 rounded">PREMIUM</span>
+</div>
+</div>
+<!-- Template Card 4 -->
+<div class="group bg-surface-container-low border border-outline-variant rounded-lg overflow-hidden hover:border-secondary transition-all">
+<div class="aspect-video relative overflow-hidden bg-surface-container-highest">
+<img alt="Brutalist Core Template" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCiWPHTbyLLlLxtGpwm7-ZVZXOV7k9JC6pvFaiATVQ1G8VylH0ztfmsmv5g0x5Ozw268R_cwdYUvlsm4n5OPRhAKacMBIMXBVVwRt6uL5d5VJP2HnlaMfrB4PcfQCoODWn3zqkKodRxjZ4B6jroBcMQ8GsigXdbuhDK7gY7GUzmeEwb3Mn3YGxK_FSAj7NZYfD6T7Ww_pTBN47aKsaAlNTCTvIKXk9hOoXopZ01jkg-jcGIup6TGxsEVcVyy51prRfe_TnyYqe4zxs1"/>
+<div class="absolute inset-0 bg-secondary/10 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+<button class="bg-secondary text-on-secondary px-md py-sm font-terminal-sm font-bold uppercase rounded shadow-lg transition-transform active:scale-95 rounded-full">SELECT TEMPLATE</button>
+</div>
+</div>
+<div class="p-sm flex justify-between items-center flex-wrap">
+<span class="font-terminal-sm text-on-surface font-bold">Brutalist Core</span><p class="text-[11px] text-on-surface-variant mt-1 leading-relaxed block w-full">Bold, raw aesthetic for experimental sites.</p>
+<span class="text-[10px] text-on-surface-variant uppercase bg-black/5 px-xs py-0.5 rounded">MINIMALIST</span>
+</div>
+</div>
+<!-- Template Card 5 -->
+<div class="group bg-surface-container-low border border-outline-variant rounded-lg overflow-hidden hover:border-secondary transition-all">
+<div class="aspect-video relative overflow-hidden bg-surface-container-highest">
+<img alt="Data Scientist Template" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAkdsWW2oJHDFOstKg9jgrAeIixZ0Dsv8Gth2ftv3qbiLxv83TnU23bJR84EpCMfdRBSTEKJRqDRJtVNhxGK2bTyqrWs2HvFMQby3NlFzuIk7nTyv3tPX7LzMPNTZGrNA71lXvDyCsEN7H1ywtyjma4ipmph99dTLdpgHa2EQXWVBbqGPKEH8duy1E5i2nfXEqmLxqxq_GmE_dGrqBSYFar4cuipr5DLpw8Iyuq3Q7tuYthCdZ1kh_fNx3KvSSLfrPIt97oGE9Xij5B"/>
+<div class="absolute inset-0 bg-secondary/10 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+<button class="bg-secondary text-on-secondary px-md py-sm font-terminal-sm font-bold uppercase rounded shadow-lg transition-transform active:scale-95 rounded-full">SELECT TEMPLATE</button>
+</div>
+</div>
+<div class="p-sm flex justify-between items-center flex-wrap">
+<span class="font-terminal-sm text-on-surface font-bold">Data Scientist</span><p class="text-[11px] text-on-surface-variant mt-1 leading-relaxed block w-full">Technical layout optimized for charts and stats.</p>
+<span class="text-[10px] text-on-surface-variant uppercase bg-black/5 px-xs py-0.5 rounded">TECHNICAL</span>
+</div>
+</div>
+<!-- Template Card 6 -->
+<div class="group bg-surface-container-low border border-outline-variant rounded-lg overflow-hidden hover:border-secondary transition-all">
+<div class="aspect-video relative overflow-hidden bg-surface-container-highest">
+<img alt="The Terminal Template" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBz-YpGlGIw44eNtSUohwO4d3-MV2PehLQf0EKwz3jYwOFnm2Al1FntAljNDGosVKdpkt_Uzb8jY-w_nV-Oj9nJM8ThCgJ7iIqA3cj3ZEBo_DYdSFsCv0t_8cqDmN8rYP4Cn1GWj5Ry0XgTaRJex8lpkaCCLjEzlM1Ub1S64FJeLK4CwGw6tVgM-UGTigWvGdEh_GRM5I0ERR0Ao6Cz8M-EW-ZrrPNncz2IwQTVRqHCGNMhgBd5ZjSDNB9WIZ9UI4IoQ2WEnxJGmr46"/>
+<div class="absolute inset-0 bg-secondary/10 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+<button class="bg-secondary text-on-secondary px-md py-sm font-terminal-sm font-bold uppercase rounded shadow-lg transition-transform active:scale-95 rounded-full">SELECT TEMPLATE</button>
+</div>
+</div>
+<div class="p-sm flex justify-between items-center flex-wrap">
+<span class="font-terminal-sm text-on-surface font-bold">The Terminal</span><p class="text-[11px] text-on-surface-variant mt-1 leading-relaxed block w-full">A pure monospace, hacker-style experience.</p>
+<span class="text-[10px] text-on-surface-variant uppercase bg-black/5 px-xs py-0.5 rounded">HACKER</span>
+</div>
+</div>
+<!-- Template Card 7 (Premium) -->
+<div class="group bg-surface-container-low border border-outline-variant rounded-lg overflow-hidden hover:border-primary transition-all">
+<div class="aspect-video relative overflow-hidden bg-surface-container-highest">
+<img alt="Portfolio Plus Preview" class="w-full h-full object-cover grayscale blur-[2px] opacity-50" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCK1PVHEx7gcPRyjkSlLIVyRwIcImh7LSBBmcxbxMJ4-ZW9XuQIn8xya4XH9vDgTaon7t4W1NYfC0681gRocuSreSaHthfvkZpZTmZrGvL3xFpisN0ICG4qnG5n7wbZOvE-90qcp-Nhv_S6kp3oqrHOXhl2-JskBUIW9Juouj5p27kRY1INawBOab5t0zBNYeqdRvFkqLjJOFTWAH1UdB7B-0mvvdgWxaGIw1CngRLUJbUzua7KQ09JdghEEU5kN2-UiEiTniYaNjjX"/>
+<div class="absolute inset-0 flex items-center justify-center">
+<div class="px-4 py-2 font-terminal-sm font-bold border-2 border-on-primary shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] uppercase tracking-tighter rounded-full bg-secondary text-on-secondary">
+                GET PREMIUM
+            </div>
+</div>
+</div>
+<div class="p-sm flex flex-wrap justify-between items-center">
+<span class="font-terminal-sm text-on-surface font-bold">Portfolio Plus</span>
+<span class="text-[10px] text-primary uppercase bg-primary/10 px-xs py-0.5 rounded font-bold">PRO</span>
+<p class="text-[11px] text-on-surface-variant mt-1 leading-relaxed block w-full">Enhanced layouts for growing brands.</p>
+</div>
+</div>
+<!-- Template Card 8 (Premium) -->
+<div class="group bg-surface-container-low border border-outline-variant rounded-lg overflow-hidden hover:border-primary transition-all">
+<div class="aspect-video relative overflow-hidden bg-surface-container-highest">
+<img alt="Creative Pro Preview" class="w-full h-full object-cover grayscale blur-[2px] opacity-50" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCiWPHTbyLLlLxtGpwm7-ZVZXOV7k9JC6pvFaiATVQ1G8VylH0ztfmsmv5g0x5Ozw268R_cwdYUvlsm4n5OPRhAKacMBIMXBVVwRt6uL5d5VJP2HnlaMfrB4PcfQCoODWn3zqkKodRxjZ4B6jroBcMQ8GsigXdbuhDK7gY7GUzmeEwb3Mn3YGxK_FSAj7NZYfD6T7Ww_pTBN47aKsaAlNTCTvIKXk9hOoXopZ01jkg-jcGIup6TGxsEVcVyy51prRfe_TnyYqe4zxs1"/>
+<div class="absolute inset-0 flex items-center justify-center">
+<div class="px-4 py-2 font-terminal-sm font-bold border-2 border-on-primary shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] uppercase tracking-tighter rounded-full bg-secondary text-on-secondary">
+                GET PREMIUM
+            </div>
+</div>
+</div>
+<div class="p-sm flex flex-wrap justify-between items-center">
+<span class="font-terminal-sm text-on-surface font-bold">Creative Pro</span>
+<span class="text-[10px] text-primary uppercase bg-primary/10 px-xs py-0.5 rounded font-bold">PRO</span>
+<p class="text-[11px] text-on-surface-variant mt-1 leading-relaxed block w-full">Dynamic sections for multimedia portfolios.</p>
+</div>
+</div>
+<!-- Template Card 9 (Premium) -->
+<div class="group bg-surface-container-low border border-outline-variant rounded-lg overflow-hidden hover:border-primary transition-all">
+<div class="aspect-video relative overflow-hidden bg-surface-container-highest">
+<img alt="Studio Max Preview" class="w-full h-full object-cover grayscale blur-[2px] opacity-50" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB8Ba93DUpkO8aI7XkPC0pSxHg0TPX_lQKFl5mPjXtYNrWT110gKft7dNbGRFJxpJ9ueHsB5uDyx0038Ey-SC-DTD5B9xBnqbIdFmMdaPIpL-whw8P-myYgH-eyWmCPfWHi9MOnuQ26ctUO2D04kIv8YIXAgzzMyrEMs1QDMdD8ou95_d4WvwyZ1SrzffNLzoayOprQs4H-SpRTCJIXNPpduBJBzruHdh2HfIwb-yRr2xXYzREjNbpNTcK47fju0yyzLt70ivYudY1k"/>
+<div class="absolute inset-0 flex items-center justify-center">
+<div class="px-4 py-2 font-terminal-sm font-bold border-2 border-on-primary shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] uppercase tracking-tighter rounded-full bg-secondary text-on-secondary">
+                GET PREMIUM
+            </div>
+</div>
+</div>
+<div class="p-sm flex flex-wrap justify-between items-center">
+<span class="font-terminal-sm text-on-surface font-bold">Studio Max</span>
+<span class="text-[10px] text-primary uppercase bg-primary/10 px-xs py-0.5 rounded font-bold">PRO</span>
+<p class="text-[11px] text-on-surface-variant mt-1 leading-relaxed block w-full">The ultimate toolkit for design agencies.</p>
+</div>
+</div></div>
+</section>
+<!-- Saved Drafts (2-column grid format) -->
+<section class="mb-xl">
+<div class="flex items-center justify-between border-b border-outline-variant pb-sm mb-lg">
+<h2 class="font-terminal-lg text-terminal-lg uppercase tracking-widest text-secondary">&gt; SAVED_DRAFTS</h2>
+<span class="text-caption font-caption text-on-surface-variant uppercase">3 ITEMS DETECTED</span>
+</div>
+<div class="grid grid-cols-1 xl:grid-cols-2 gap-sm lg:gap-gutter">
+<!-- Draft Card 1 -->
+<div class="flex flex-col sm:flex-row items-center justify-between p-md bg-surface-container-low border border-outline-variant hover:border-outline transition-all group">
+<div class="flex items-start gap-md w-full sm:w-auto">
+<div class="w-12 h-12 flex-shrink-0 flex items-center justify-center bg-surface-container-highest rounded border border-outline-variant">
+<span class="material-symbols-outlined text-secondary" data-icon="description">description</span>
+</div>
+<div class="flex flex-col">
+<h3 class="font-terminal-sm text-on-surface font-bold uppercase">portfolio_v1_final</h3>
+<div class="flex flex-wrap gap-x-md gap-y-xs mt-xs">
+<span class="text-[11px] text-on-surface-variant">TEMPLATE: <span class="text-secondary font-semibold">Architect Elite</span></span>
+<span class="text-[11px] text-on-surface-variant">MODIFIED: <span class="text-on-surface">OCT 24, 2024</span></span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-sm mt-md sm:mt-0 w-full sm:w-auto justify-end">
+<button class="flex items-center gap-xs px-md py-sm bg-secondary text-on-secondary font-terminal-sm font-bold uppercase rounded active:scale-95 transition-all rounded-full">
+<span class="material-symbols-outlined text-sm" data-icon="edit">edit</span>
+                            OPEN/EDIT
+                        </button>
+<button class="flex items-center justify-center w-10 h-10 border border-outline-variant text-on-surface-variant hover:text-error hover:border-error transition-all rounded">
+<span class="material-symbols-outlined text-sm" data-icon="delete">delete</span>
+</button>
+</div>
+</div>
+<!-- Draft Card 2 -->
+<div class="flex flex-col sm:flex-row items-center justify-between p-md bg-surface-container-low border border-outline-variant hover:border-outline transition-all group">
+<div class="flex items-start gap-md w-full sm:w-auto">
+<div class="w-12 h-12 flex-shrink-0 flex items-center justify-center bg-surface-container-highest rounded border border-outline-variant">
+<span class="material-symbols-outlined text-secondary" data-icon="description">description</span>
+</div>
+<div class="flex flex-col">
+<h3 class="font-terminal-sm text-on-surface font-bold uppercase">dev_sandbox_experiment</h3>
+<div class="flex flex-wrap gap-x-md gap-y-xs mt-xs">
+<span class="text-[11px] text-on-surface-variant">TEMPLATE: <span class="text-secondary font-semibold">Simple Starter</span></span>
+<span class="text-[11px] text-on-surface-variant">MODIFIED: <span class="text-on-surface">OCT 22, 2024</span></span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-sm mt-md sm:mt-0 w-full sm:w-auto justify-end">
+<button class="flex items-center gap-xs px-md py-sm bg-secondary text-on-secondary font-terminal-sm font-bold uppercase rounded active:scale-95 transition-all rounded-full">
+<span class="material-symbols-outlined text-sm" data-icon="edit">edit</span>
+                            OPEN/EDIT
+                        </button>
+<button class="flex items-center justify-center w-10 h-10 border border-outline-variant text-on-surface-variant hover:text-error hover:border-error transition-all rounded">
+<span class="material-symbols-outlined text-sm" data-icon="delete">delete</span>
+</button>
+</div>
+</div>
+<!-- Draft Card 3 -->
+<div class="flex flex-col sm:flex-row items-center justify-between p-md bg-surface-container-low border border-outline-variant hover:border-outline transition-all group">
+<div class="flex items-start gap-md w-full sm:w-auto">
+<div class="w-12 h-12 flex-shrink-0 flex items-center justify-center bg-surface-container-highest rounded border border-outline-variant">
+<span class="material-symbols-outlined text-secondary" data-icon="description">description</span>
+</div>
+<div class="flex flex-col">
+<h3 class="font-terminal-sm text-on-surface font-bold uppercase">personal_site_bak</h3>
+<div class="flex flex-wrap gap-x-md gap-y-xs mt-xs">
+<span class="text-[11px] text-on-surface-variant">TEMPLATE: <span class="text-secondary font-semibold">The Terminal</span></span>
+<span class="text-[11px] text-on-surface-variant">MODIFIED: <span class="text-on-surface">OCT 15, 2024</span></span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-sm mt-md sm:mt-0 w-full sm:w-auto justify-end">
+<button class="flex items-center gap-xs px-md py-sm bg-secondary text-on-secondary font-terminal-sm font-bold uppercase rounded active:scale-95 transition-all rounded-full">
+<span class="material-symbols-outlined text-sm" data-icon="edit">edit</span>
+                            OPEN/EDIT
+                        </button>
+<button class="flex items-center justify-center w-10 h-10 border border-outline-variant text-on-surface-variant hover:text-error hover:border-error transition-all rounded">
+<span class="material-symbols-outlined text-sm" data-icon="delete">delete</span>
+</button>
+</div>
+</div>
+</div>
+</section>
+</div>
+<!-- Footer (Inside Main Content to align with grid) -->
+<footer class="w-full py-xl px-gutter lg:px-lg flex flex-col md:flex-row justify-between items-center gap-md max-w-[1440px] mx-auto border-t border-outline-variant bg-surface-container-lowest text-secondary font-terminal-sm text-terminal-sm uppercase tracking-tighter">
+<div class="flex flex-col md:flex-row items-center gap-lg">
+<span class="font-terminal-lg text-terminal-lg text-secondary font-bold">LEVEL 0</span>
+<div class="flex gap-md">
+<a class="text-on-surface-variant/60 hover:text-secondary underline decoration-secondary/30 transition-opacity duration-200" href="#">Templates</a>
+<a class="text-on-surface-variant/60 hover:text-secondary underline decoration-secondary/30 transition-opacity duration-200" href="#">Features</a>
+<a class="text-on-surface-variant/60 hover:text-secondary underline decoration-secondary/30 transition-opacity duration-200" href="#">How it Works</a>
+</div>
+</div>
+<div class="flex flex-col md:flex-row items-center gap-lg text-right">
+<div class="flex gap-md">
+<a class="text-on-surface-variant/60 hover:text-secondary underline decoration-secondary/30 transition-opacity duration-200" href="#">Privacy</a>
+<a class="text-on-surface-variant/60 hover:text-secondary underline decoration-secondary/30 transition-opacity duration-200" href="#">Terms</a>
+</div>
+<span class="text-on-surface-variant/40">© 2024 LEVEL 0 ARCHITECTS. ALL RIGHTS RESERVED.</span>
+</div>
+</footer>
+</main>
+</body></html>

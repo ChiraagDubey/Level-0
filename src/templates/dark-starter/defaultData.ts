@@ -136,4 +136,18 @@ export const defaultPortfolioData: PortfolioData = {
     note: "Designed to feel approachable, dark, and production-ready from the first draft.",
     watermark: "Built with LEVEL 0",
   },
+  templateLabels: {
+    heroExperienceLabel: "Current role",
+    heroEducationLabel: "Education",
+    heroSkillsLabel: "Core stack",
+    socialLinksLabel: "Social links",
+    aboutSkillsLabel: "Focus",
+    locationLabel: "Location",
+    availabilityLabel: "Availability",
+    projectsLabel: "Projects",
+    projectsTitle: "Featured work",
+    skillsLabel: "Skills",
+    experienceLabel: "Experience",
+    educationLabel: "Education",
+  },
 };
