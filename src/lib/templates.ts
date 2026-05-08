@@ -2,6 +2,9 @@ import type { ComponentType } from "react";
 import { defaultPortfolioData as arcadeNeonDefaultData } from "@/templates/arcade-neon/defaultData";
 import { arcadeNeonMetadata } from "@/templates/arcade-neon/metadata";
 import { ArcadeNeonTemplate } from "@/templates/arcade-neon/Template";
+import { defaultPortfolioData as blushfolioDefaultData } from "@/templates/blushfolio/defaultData";
+import { blushfolioMetadata } from "@/templates/blushfolio/metadata";
+import { BlushfolioTemplate } from "@/templates/blushfolio/Template";
 import { defaultPortfolioData as darkStarterDefaultData } from "@/templates/dark-starter/defaultData";
 import { darkStarterMetadata } from "@/templates/dark-starter/metadata";
 import { DarkStarterTemplate } from "@/templates/dark-starter/Template";
@@ -42,6 +45,7 @@ export type TemplatePreviewStyle =
   | "dark-clean"
   | "dark-vcard"
   | "light-vcard"
+  | "blushfolio"
   | "developer-os"
   | "arcade-neon";
 
@@ -103,6 +107,18 @@ export const TEMPLATE_REGISTRY: Record<string, TemplateDefinition> = {
     },
     defaultData: lightVCardDefaultData,
     TemplateComponent: LightVCardTemplate,
+    exportSupported: true,
+  },
+  [blushfolioMetadata.id]: {
+    metadata: blushfolioMetadata,
+    gallery: {
+      theme: "light",
+      plan: "Free",
+      bestFor: "Dreamy creator brands",
+      previewStyle: "blushfolio",
+    },
+    defaultData: blushfolioDefaultData,
+    TemplateComponent: BlushfolioTemplate,
     exportSupported: true,
   },
   [developerOSMetadata.id]: {

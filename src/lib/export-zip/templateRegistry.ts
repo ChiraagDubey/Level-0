@@ -1,4 +1,5 @@
 import { createArcadeNeonGlobalsCss, createArcadeNeonPortfolioTemplateFile } from "@/lib/export-zip/templates/arcadeNeon";
+import { createBlushfolioGlobalsCss, createBlushfolioPortfolioTemplateFile } from "@/lib/export-zip/templates/blushfolio";
 import { createDarkStarterGlobalsCss, createDarkStarterPortfolioTemplateFile } from "@/lib/export-zip/templates/darkStarter";
 import { createDeveloperOSGlobalsCss, createDeveloperOSPortfolioTemplateFile } from "@/lib/export-zip/templates/developerOS";
 import { createLightVCardGlobalsCss, createLightVCardPortfolioTemplateFile } from "@/lib/export-zip/templates/lightVCard";
@@ -11,6 +12,7 @@ export function resolveExportTemplateId(templateId: string): ExportTemplateId {
     templateId === "dark-starter" ||
     templateId === "profile-card" ||
     templateId === "light-vcard" ||
+    templateId === "blushfolio" ||
     templateId === "developer-os" ||
     templateId === "arcade-neon"
       ? templateId
@@ -37,6 +39,13 @@ export function createTemplateFiles(templateId: ExportTemplateId): ExportTemplat
     return {
       globalsCss: createLightVCardGlobalsCss(),
       portfolioTemplate: createLightVCardPortfolioTemplateFile(),
+    };
+  }
+
+  if (templateId === "blushfolio") {
+    return {
+      globalsCss: createBlushfolioGlobalsCss(),
+      portfolioTemplate: createBlushfolioPortfolioTemplateFile(),
     };
   }
 

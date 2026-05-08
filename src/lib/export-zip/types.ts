@@ -3,6 +3,7 @@ export type ExportTemplateId =
   | "dark-starter"
   | "profile-card"
   | "light-vcard"
+  | "blushfolio"
   | "developer-os"
   | "arcade-neon";
 

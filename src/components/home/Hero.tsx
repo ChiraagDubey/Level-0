@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { User } from "@supabase/supabase-js";
 import { AuthButtons } from "@/components/auth/AuthButtons";
+import { AVAILABLE_TEMPLATES } from "@/lib/templates";
 
 export function Hero({
   user,
@@ -11,6 +12,7 @@ export function Hero({
 }) {
   const isSignedIn = Boolean(user);
   const startHref = isSignedIn ? "/dashboard" : redirectPath ?? "/dashboard";
+  const totalTemplates = AVAILABLE_TEMPLATES.length;
 
   return (
     <>
@@ -50,7 +52,7 @@ export function Hero({
           <div className="space-y-8">
             <div className="inline-flex rounded-full items-center gap-2 border border-outline-variant bg-surface-container px-3 py-2 font-mono text-[11px] uppercase tracking-[0.22em] text-on-primary-fixed-variant">
               <span className="text-secondary">&gt;</span>
-              System Ready: Portfolio Engine
+              System Ready: {String(totalTemplates).padStart(2, "0")} Templates Live
             </div>
             <div className="space-y-5">
               <p className="font-mono text-[11px] uppercase tracking-[0.3em] text-on-surface-variant">LEVEL 0 - From zero to portfolio.</p>
@@ -62,8 +64,8 @@ export function Hero({
                 Export the code.
               </h1>
               <p className="max-w-2xl text-base leading-8 text-on-surface-variant md:text-lg">
-                LEVEL 0 is a portfolio builder for creators, beginners, and developers. Choose a finished template,
-                edit it visually, save your draft, and export a standalone ZIP project when you are ready.
+                LEVEL 0 is a portfolio builder for creators, beginners, and developers. Start from 7 finished
+                templates, edit visually, save your draft, and export a standalone ZIP project when you are ready.
               </p>
             </div>
 

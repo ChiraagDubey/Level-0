@@ -1,7 +1,7 @@
 const steps = [
   {
     title: "Pick a template",
-    body: "Choose one of the six finished portfolio starters already connected to the editor.",
+    body: "Choose one of the 7 finished portfolio starters already connected to the editor.",
   },
   {
     title: "Edit directly",
@@ -36,7 +36,7 @@ const features = [
   },
   {
     title: "Free Templates",
-    body: "All six free starters use the same real editor, save flow, and export path.",
+    body: "All 7 free starters use the same real editor, save flow, and export path.",
   },
 ];
 
@@ -70,7 +70,7 @@ export function HowItWorks() {
             ))}
             <article className="flex rounded-xl items-center justify-center border border-secondary bg-secondary/5 p-5 text-center">
               <div className="space-y-2">
-                <p className="text-4xl font-semibold uppercase tracking-[-0.05em] text-secondary">6</p>
+                <p className="text-4xl font-semibold uppercase tracking-[-0.05em] text-secondary">7</p>
                 <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-on-surface-variant">Finished templates available now</p>
               </div>
             </article>

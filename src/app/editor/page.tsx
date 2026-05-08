@@ -1,7 +1,5 @@
-import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { EditorShell } from "@/components/editor/EditorShell";
-import { createPortfolioDraft } from "@/lib/portfolios";
 import { createSupabaseServerClient, getCurrentUserSafe } from "@/lib/supabase/server";
 
 export default async function EditorPage({
@@ -14,16 +12,14 @@ export default async function EditorPage({
   const user = await getCurrentUserSafe(supabase, "editor-page");
   const templateId = resolvedSearchParams.template;
 
+  if (!templateId) {
+    redirect("/editor?template=simple-starter");
+  }
+
   if (!user) {
-    const redirectPath = templateId ? `/editor?template=${templateId}` : "/editor";
+    const redirectPath = `/editor?template=${templateId}`;
     redirect(`/?redirect=${encodeURIComponent(redirectPath)}`);
   }
 
-  if (templateId) {
-    const draft = await createPortfolioDraft(supabase, user.id, templateId);
-    revalidatePath("/dashboard");
-    redirect(`/editor/${draft.id}`);
-  }
-
-  return <EditorShell />;
+  return <EditorShell selectedTemplateId={templateId} />;
 }

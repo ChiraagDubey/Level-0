@@ -14,8 +14,8 @@ export function TemplateShowcase({ user }: { user: User | null }) {
               Pick a finished starting point, then make it yours.
             </h2>
             <p className="max-w-2xl text-sm leading-7 text-on-surface-variant md:text-base">
-              The template gallery stays dynamic and connected to the existing registry. Every card still follows the
-              same real create-draft or guest redirect flow.
+              The template gallery stays dynamic and connected to the existing registry. All 7 templates, including
+              BubuBlush, still follow the same real create-draft or guest redirect flow.
             </p>
           </div>
           <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-on-surface-variant">

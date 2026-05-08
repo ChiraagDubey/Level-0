@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { User } from "@supabase/supabase-js";
 import { AuthButtons } from "@/components/auth/AuthButtons";
 import { SignOutButton } from "@/components/auth/SignOutButton";
+import { AVAILABLE_TEMPLATES } from "@/lib/templates";
 
 const navItems = [
   { label: "Dashboard", href: "/dashboard" },
@@ -10,7 +11,7 @@ const navItems = [
   { label: "Account", href: "#account" },
 ];
 
-const planFeatures = ["6 templates unlocked", "Watermarked ZIP export", "Pro features coming soon"];
+const planFeatures = [`${AVAILABLE_TEMPLATES.length} templates unlocked`, "Watermarked ZIP export", "Pro features coming soon"];
 
 function getUserDisplayName(user: User) {
   const metadataName = user.user_metadata.full_name ?? user.user_metadata.name ?? user.user_metadata.user_name;

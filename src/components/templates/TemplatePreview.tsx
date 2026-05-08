@@ -125,6 +125,47 @@ function renderPreview(previewStyle: TemplateGalleryMetadata["previewStyle"]) {
           </div>
         </div>
       );
+    case "blushfolio":
+      return (
+        <div className="relative h-[calc(100%-20px)] overflow-hidden border border-[#f0dbe3] bg-[linear-gradient(180deg,#fff9fb_0%,#fff1f5_65%,#fff7f2_100%)] p-3 text-black">
+          <div className="absolute -left-3 top-3 h-14 w-14 rounded-full bg-[#f7d7e1]/70 blur-[2px]" />
+          <div className="absolute right-3 top-4 h-8 w-8 rotate-12 rounded-[12px] bg-white/80" />
+          <div className="absolute bottom-4 right-5 h-10 w-10 rounded-full bg-[#f5dcc8]/70 blur-[1px]" />
+          <div className="relative grid h-full gap-3">
+            <div className="grid grid-cols-[1.15fr_0.85fr] gap-3">
+              <div className="rounded-[18px] border border-[#efd7e0] bg-white/90 p-3">
+                <div className="h-2.5 w-20 rounded-full bg-[#d97898]/30" />
+                <div className="mt-3 h-7 w-4/5 rounded-full bg-[#3b2a33]" />
+                <div className="mt-2 h-2.5 w-3/5 rounded-full bg-black/15" />
+                <div className="mt-4 flex gap-2">
+                  <div className="h-8 w-24 rounded-full bg-[#d97898]" />
+                  <div className="h-8 w-20 rounded-full border border-[#f0dbe3] bg-white" />
+                </div>
+              </div>
+              <div className="rounded-[20px] border border-[#f0dbe3] bg-white/85 p-2">
+                <div className="h-full min-h-[86px] rounded-[16px] bg-[linear-gradient(180deg,#fff8fa_0%,#ffeef3_100%)]" />
+              </div>
+            </div>
+            <div className="grid flex-1 grid-cols-3 gap-3">
+              <div className="rounded-[18px] border border-[#f0dbe3] bg-white/88 p-3">
+                <div className="h-2 w-12 rounded-full bg-[#d97898]/55" />
+                <div className="mt-3 h-8 rounded-[12px] bg-[#fff3f7]" />
+                <div className="mt-2 h-8 rounded-[12px] bg-[#fff7f3]" />
+              </div>
+              <div className="rounded-[18px] border border-[#f0dbe3] bg-[#fff7fa] p-3">
+                <div className="h-2 w-10 rounded-full bg-[#d97898]/55" />
+                <div className="mt-3 h-14 rounded-[14px] bg-white/90" />
+              </div>
+              <div className="rounded-[18px] border border-[#f0dbe3] bg-white/88 p-3">
+                <div className="h-2 w-11 rounded-full bg-[#d97898]/55" />
+                <div className="mt-3 h-5 rounded-full bg-[#f6d9e3]" />
+                <div className="mt-2 h-5 rounded-full bg-[#f8e7da]" />
+                <div className="mt-2 h-5 rounded-full bg-[#fdeff4]" />
+              </div>
+            </div>
+          </div>
+        </div>
+      );
     case "developer-os":
       return (
         <div className="relative flex h-[calc(100%-20px)] flex-col border border-emerald-300/15 bg-[#08110f] p-3 text-emerald-100">

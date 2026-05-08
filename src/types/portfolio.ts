@@ -17,6 +17,19 @@ export interface HeroSection {
   profileImage: string;
 }
 
+export interface HeroAsideSection {
+  statusLabel?: string;
+  profileLabel?: string;
+  profileModeLabel?: string;
+  detailLabel?: string;
+  highlightItems?: string[];
+  spotlightLabel?: string;
+  spotlightTitle?: string;
+  spotlightBody?: string;
+  toolkitLabel?: string;
+  toolkitBody?: string;
+}
+
 export interface AboutSection {
   heading: string;
   body: string;
@@ -93,6 +106,7 @@ export interface PortfolioData {
   templateId: string;
   theme: PortfolioTheme;
   hero: HeroSection;
+  heroAside?: HeroAsideSection;
   about: AboutSection;
   projects: ProjectItem[];
   skills: SkillGroup[];

@@ -20,7 +20,7 @@ export function DashboardShell({
 
         <section className="space-y-6">
           <div className="rounded-2xl border border-outline-variant bg-white shadow-[0_20px_55px_rgba(31,33,30,0.06)]">
-            <div className="flex flex-col gap-6 p-6 lg:flex-row lg:items-start lg:justify-between lg:p-8">
+            <div className="space-y-6 p-6 lg:p-8">
               <div className="space-y-4">
                 <p className="font-mono text-[11px] uppercase tracking-[0.26em] text-secondary">&gt; root / dashboard</p>
                 <div className="space-y-3">
@@ -33,9 +33,7 @@ export function DashboardShell({
                   </p>
                 </div>
               </div>
-              <div className="min-w-0 lg:max-w-sm">
-                <ImportWebsiteCard />
-              </div>
+              <ImportWebsiteCard isSignedIn={Boolean(user)} templates={AVAILABLE_TEMPLATES} />
             </div>
           </div>
 
@@ -49,7 +47,9 @@ export function DashboardShell({
                   existing redirect flow for guests.
                 </p>
               </div>
-              <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-on-surface-variant">6 free templates</p>
+              <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-on-surface-variant">
+                {AVAILABLE_TEMPLATES.length} free templates
+              </p>
             </div>
             <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
               {AVAILABLE_TEMPLATES.map((template) => (
