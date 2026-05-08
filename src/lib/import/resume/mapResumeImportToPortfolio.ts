@@ -216,7 +216,7 @@ export function normalizeResumeImportExtractedData(value: unknown): ResumeImport
     return null;
   }
 
-  return rawValue as ResumeImportExtractedData;
+  return rawValue as unknown as ResumeImportExtractedData;
 }
 
 export function mapResumeImportToPortfolio(templateId: string, data: ResumeImportExtractedData): PortfolioData {

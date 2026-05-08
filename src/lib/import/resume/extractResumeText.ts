@@ -50,7 +50,6 @@ async function extractResumeTextWithAttempt(
     data: pdfData,
     useWorkerFetch: false,
     stopAtErrors: false,
-    isEvalSupported: false,
     disableFontFace: true,
     ...attempt.options,
   });
