@@ -16,7 +16,7 @@ export function CTA({ user }: { user: User | null }) {
           </p>
           <div className="mt-8 flex justify-center">
             <Link
-              href={user ? "/dashboard" : "#start"}
+              href="/dashboard"
               className="inline-flex items-center justify-center border border-white bg-white px-6 py-3 font-mono text-[11px] uppercase tracking-[0.22em] text-secondary transition-colors hover:bg-[#eaf7f8]"
             >
               {user ? "Open Dashboard" : "Start Free"}

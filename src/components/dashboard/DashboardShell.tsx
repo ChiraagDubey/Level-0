@@ -1,18 +1,25 @@
+import { createPortfolioFromTemplate } from "@/app/actions/portfolios";
+import { AuthButtons } from "@/components/auth/AuthButtons";
 import { ImportWebsiteCard } from "@/components/dashboard/ImportWebsiteCard";
 import { PortfolioDraftCard } from "@/components/dashboard/PortfolioDraftCard";
 import { Sidebar } from "@/components/dashboard/Sidebar";
 import { TemplateCard } from "@/components/dashboard/TemplateCard";
-import type { PortfolioDraftSummary } from "@/lib/portfolios";
-import { AVAILABLE_TEMPLATES } from "@/lib/templates";
+import { AVAILABLE_TEMPLATES, type TemplateGalleryEntry } from "@/lib/templates";
 import type { User } from "@supabase/supabase-js";
+import type { PortfolioDraftSummary } from "@/lib/portfolios";
 
 export function DashboardShell({
   user,
   drafts,
+  selectedTemplate,
 }: {
   user: User | null;
   drafts: PortfolioDraftSummary[];
+  selectedTemplate: TemplateGalleryEntry | null;
 }) {
+  const continuationPath = selectedTemplate ? `/dashboard?template=${encodeURIComponent(selectedTemplate.id)}` : "/dashboard";
+  const continueWithTemplateAction = selectedTemplate ? createPortfolioFromTemplate.bind(null, selectedTemplate.id) : null;
+
   return (
     <main className="mx-auto max-w-[1440px] px-4 py-6 sm:px-6 lg:px-8 lg:py-8">
       <div className="grid gap-6 lg:grid-cols-[248px_1fr] xl:grid-cols-[264px_1fr]">
@@ -37,6 +44,44 @@ export function DashboardShell({
             </div>
           </div>
 
+          {selectedTemplate ? (
+            <section className="rounded-2xl border border-secondary/20 bg-secondary-container/20 p-5 shadow-[0_20px_55px_rgba(31,33,30,0.05)] md:p-6">
+              <div className="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
+                <div className="space-y-3">
+                  <p className="font-mono text-[11px] uppercase tracking-[0.24em] text-secondary">&gt; continue_with_template</p>
+                  <h2 className="text-3xl font-semibold tracking-[-0.04em] text-on-background">
+                    {user ? `Continue with ${selectedTemplate.name}.` : "Sign in to continue with this template."}
+                  </h2>
+                  <p className="max-w-3xl text-sm leading-7 text-on-surface-variant">
+                    {user
+                      ? `We will create a saved ${selectedTemplate.name} draft and open it in the editor.`
+                      : `You selected ${selectedTemplate.name}. Sign in to continue with this template.`}
+                  </p>
+                </div>
+
+                {user && continueWithTemplateAction ? (
+                  <form action={continueWithTemplateAction}>
+                    <button
+                      type="submit"
+                      className="inline-flex rounded-full border border-secondary bg-secondary px-6 py-3 font-mono text-[11px] uppercase tracking-[0.22em] text-white transition-colors hover:bg-secondary"
+                    >
+                      Continue with this template
+                    </button>
+                  </form>
+                ) : (
+                  <div className="w-full max-w-xl rounded-2xl border border-outline-variant bg-white p-4 shadow-[0_18px_50px_rgba(31,33,30,0.08)]">
+                    <p className="text-sm leading-7 text-on-surface-variant">
+                      Sign in to continue with this template.
+                    </p>
+                    <div className="mt-4">
+                      <AuthButtons redirectToPath={continuationPath} />
+                    </div>
+                  </div>
+                )}
+              </div>
+            </section>
+          ) : null}
+
           <section id="template-selection" className="rounded-2xl border border-outline-variant bg-background p-5 shadow-[0_20px_55px_rgba(31,33,30,0.05)] md:p-6">
             <div className="mb-5 flex flex-col gap-3 border-b border-outline-variant pb-4 sm:flex-row sm:items-end sm:justify-between">
               <div>
@@ -44,7 +89,7 @@ export function DashboardShell({
                 <h2 className="mt-2 text-3xl font-semibold tracking-[-0.04em] text-on-background">Choose a starter and create a draft.</h2>
                 <p className="mt-2 max-w-3xl text-sm leading-7 text-on-surface-variant">
                   The template section remains connected to the real create-draft action for signed-in users and the
-                  existing redirect flow for guests.
+                  sign-in continuation flow for guests.
                 </p>
               </div>
               <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-on-surface-variant">

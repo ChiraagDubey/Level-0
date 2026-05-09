@@ -122,16 +122,23 @@ export async function middleware(request: NextRequest) {
   }
 
   if (request.nextUrl.pathname.startsWith("/editor") && !user) {
-    const redirectTarget = `${request.nextUrl.pathname}${request.nextUrl.search}`;
-    const loginUrl = new URL("/", request.url);
+    let redirectUrl: URL;
 
-    if (redirectTarget && redirectTarget !== "/editor") {
-      loginUrl.searchParams.set("redirect", redirectTarget);
+    if (request.nextUrl.pathname === "/editor") {
+      redirectUrl = new URL("/dashboard", request.url);
+
+      const templateId = request.nextUrl.searchParams.get("template");
+
+      if (templateId) {
+        redirectUrl.searchParams.set("template", templateId);
+      }
     } else {
-      loginUrl.searchParams.set("redirect", "/editor");
+      const redirectTarget = `${request.nextUrl.pathname}${request.nextUrl.search}`;
+      redirectUrl = new URL("/", request.url);
+      redirectUrl.searchParams.set("redirect", redirectTarget);
     }
 
-    const redirectResponse = NextResponse.redirect(loginUrl);
+    const redirectResponse = NextResponse.redirect(redirectUrl);
 
     clearSupabaseAuthCookies(request, redirectResponse);
 

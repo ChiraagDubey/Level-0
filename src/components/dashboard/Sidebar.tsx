@@ -114,10 +114,10 @@ export function Sidebar({ user }: { user: User | null }) {
               Back to Home
             </Link>
             <Link
-              href="/editor?template=simple-starter"
+              href={isSignedIn ? "/editor?template=simple-starter" : "#template-selection"}
               className="block rounded-full border border-secondary bg-secondary px-4 py-3 text-center font-mono text-[11px] uppercase tracking-[0.22em] text-white transition-colors hover:bg-secondary"
             >
-              Open Editor
+              {isSignedIn ? "Open Editor" : "Browse Templates"}
             </Link>
             {isSignedIn ? <SignOutButton /> : null}
           </div>

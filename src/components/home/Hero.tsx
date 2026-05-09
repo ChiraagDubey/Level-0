@@ -6,12 +6,13 @@ import { AVAILABLE_TEMPLATES } from "@/lib/templates";
 export function Hero({
   user,
   redirectPath,
+  hasRedirectIntent = false,
 }: {
   user: User | null;
   redirectPath?: string;
+  hasRedirectIntent?: boolean;
 }) {
   const isSignedIn = Boolean(user);
-  const startHref = isSignedIn ? "/dashboard" : redirectPath ?? "/dashboard";
   const totalTemplates = AVAILABLE_TEMPLATES.length;
 
   return (
@@ -86,9 +87,19 @@ export function Hero({
               </div>
             ) : (
               <div id="start" className="space-y-5">
+                {hasRedirectIntent ? (
+                  <div className="max-w-xl rounded-2xl border border-secondary/20 bg-secondary-container/20 p-4 shadow-[0_18px_50px_rgba(31,33,30,0.08)]">
+                    <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-secondary">
+                      Sign in to continue building your portfolio.
+                    </p>
+                    <p className="mt-2 text-sm leading-7 text-on-surface-variant">
+                      Your last step needs an account. Sign in below and we&apos;ll send you back to the right place.
+                    </p>
+                  </div>
+                ) : null}
                 <div className="flex flex-wrap gap-3">
                   <Link
-                    href={startHref}
+                    href="/dashboard"
                     className="inline-flex rounded-full items-center justify-center border border-secondary bg-secondary px-6 py-3 font-mono text-[11px] uppercase tracking-[0.22em] text-white transition-colors hover:bg-secondary"
                   >
                     Get Started
@@ -105,7 +116,7 @@ export function Hero({
                     Sign in with Google or GitHub to create saved drafts, open the protected editor, and export your
                     finished portfolio.
                   </p>
-                  <AuthButtons redirectToPath={redirectPath ?? "/dashboard"} />
+                  <AuthButtons redirectToPath={redirectPath} />
                 </div>
               </div>
             )}

@@ -15,8 +15,7 @@ export function TemplateGalleryCard({
   user?: User | null;
 }) {
   const isDashboard = variant === "dashboard";
-  const editorHref = `/editor?template=${template.id}`;
-  const actionHref = user ? editorHref : `/?redirect=${encodeURIComponent(editorHref)}`;
+  const actionHref = `/dashboard?template=${encodeURIComponent(template.id)}`;
   const createPortfolioAction = createPortfolioFromTemplate.bind(null, template.id);
   const actionButtonClassName = "w-full items-center justify-center border border-secondary bg-secondary px-4 py-3 text-white hover:bg-secondary";
 
@@ -24,7 +23,7 @@ export function TemplateGalleryCard({
     <article className="overflow-hidden rounded-2xl border border-outline-variant bg-white shadow-[0_18px_50px_rgba(31,33,30,0.07)] transition-all duration-300 hover:-translate-y-2 hover:shadow-xl">
       <div className={isDashboard ? "flex flex-col" : "flex flex-col"}>
         <div className="relative">
-        <TemplatePreview gallery={template.gallery} />
+          <TemplatePreview gallery={template.gallery} />
           <span className="absolute right-4 top-4 inline-flex rounded-full border border-secondary bg-secondary px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.2em] text-white">
             FREE
           </span>

@@ -10,6 +10,24 @@ const providerLabels: Record<AuthProvider, string> = {
   github: "Continue with GitHub",
 };
 
+function getSafeInternalPath(path?: string) {
+  if (!path || !path.startsWith("/") || path.startsWith("//")) {
+    return "/dashboard";
+  }
+
+  try {
+    const url = new URL(path, "http://localhost");
+
+    if (url.origin !== "http://localhost") {
+      return "/dashboard";
+    }
+
+    return `${url.pathname}${url.search}${url.hash}`;
+  } catch {
+    return "/dashboard";
+  }
+}
+
 export function AuthButtons({ redirectToPath = "/dashboard" }: { redirectToPath?: string }) {
   const [pendingProvider, setPendingProvider] = useState<AuthProvider | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -17,10 +35,9 @@ export function AuthButtons({ redirectToPath = "/dashboard" }: { redirectToPath?
   const handleSignIn = async (provider: AuthProvider) => {
     const supabase = createSupabaseBrowserClient();
     const callbackUrl = new URL(`${window.location.origin}/auth/callback`);
+    const safeRedirectPath = getSafeInternalPath(redirectToPath);
 
-    if (redirectToPath) {
-      callbackUrl.searchParams.set("next", redirectToPath);
-    }
+    callbackUrl.searchParams.set("next", safeRedirectPath);
 
     setPendingProvider(provider);
     setErrorMessage(null);
