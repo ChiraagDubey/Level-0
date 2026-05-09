@@ -186,13 +186,13 @@ export function ImportWebsiteCard({
   const previewKey = previewData ? `resume:${previewData.sourceFileName}:${selectedTemplateId}` : selectedTemplateId;
 
   return (
-    <section className="border border-outline-variant bg-surface-container-low p-4 sm:p-5">
+    <section className="rounded-2xl border border-outline-variant bg-surface-container-low p-4 sm:p-5">
       <div className="space-y-2">
         <p className="font-mono text-[11px] uppercase tracking-[0.24em] text-secondary">Build from your resume</p>
         <h3 className="text-lg font-semibold tracking-[-0.03em] text-on-background">PDF import is coming soon.</h3>
       </div>
 
-      <div className="mt-4 border border-dashed border-outline-variant bg-white px-4 py-6 sm:px-5">
+      <div className="mt-4 rounded-xl border border-dashed border-outline-variant bg-white px-4 py-6 sm:px-5">
         <div className="max-w-2xl space-y-3">
           <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-on-surface-variant">Coming soon</p>
           <p className="text-sm leading-7 text-on-surface-variant">
