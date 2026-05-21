@@ -231,16 +231,66 @@ export function EditorShell({
 
           <div className="grid gap-6 xl:grid-cols-[420px_minmax(0,1fr)]">
             <aside className="panel h-fit p-5 xl:sticky xl:top-6">
-              <p className="font-mono text-xs uppercase tracking-[0.24em] text-on-surface-variant">Editing guide</p>
-              <div className="mt-4 space-y-4 text-sm leading-7 text-on-surface-variant">
-                {isSavedDraft ? (
-                  <p>This draft loads from Supabase, supports manual save, and uploads replaced images to Storage.</p>
-                ) : null}
-                <p>Click any mapped text in the preview to edit it with an input or textarea.</p>
-                <p>Click an image to replace it with a local PNG, JPG, JPEG, or WEBP file.</p>
-                <p>Hover the Resume and Socials buttons to edit their destination links without leaving the preview.</p>
-                <p>Accent color presets update buttons, highlights, badges, borders, and the contact panel.</p>
-                <p>The preview footer keeps the free-tier watermark: Built with LEVEL 0.</p>
+              <div className="space-y-6">
+                <div>
+                  <p className="font-mono text-xs uppercase tracking-[0.24em] text-on-surface-variant">Editing guide</p>
+                  <div className="mt-4 space-y-4 text-sm leading-7 text-on-surface-variant">
+                    {isSavedDraft ? (
+                      <p>This draft loads from Supabase, supports manual save, and uploads replaced images to Storage.</p>
+                    ) : null}
+                    <p>Click any mapped text in the preview to edit it with an input or textarea.</p>
+                    <p>Click an image to replace it with a local PNG, JPG, JPEG, or WEBP file.</p>
+                    <p>Hover the Resume and Socials buttons to edit their destination links without leaving the preview.</p>
+                    <p>Accent color presets update buttons, highlights, badges, borders, and the contact panel.</p>
+                    <p>The preview footer keeps the free-tier watermark: Built with LEVEL 0.</p>
+                  </div>
+                </div>
+
+                <hr className="border-outline-variant" />
+
+                <div>
+                  <p className="font-mono text-xs uppercase tracking-[0.24em] text-on-surface-variant">Quick Start Guide</p>
+                  <div className="mt-4 space-y-5 text-sm leading-7 text-on-surface-variant">
+                    <div className="space-y-2">
+                      <p className="font-medium text-on-surface">Editing</p>
+                      <ul className="list-disc space-y-1 pl-4 marker:text-on-surface-variant/50">
+                        <li>Click text to edit it</li>
+                        <li>Click images to replace them</li>
+                        <li>Use accent colors to customize the look</li>
+                        <li>Click Save when done</li>
+                      </ul>
+                    </div>
+
+                    <div className="space-y-2">
+                      <p className="font-medium text-on-surface">Deployment</p>
+                      <ul className="list-disc space-y-1 pl-4 marker:text-on-surface-variant/50">
+                        <li>Export as ZIP</li>
+                        <li>Open in VS Code</li>
+                        <li>Run <code className="rounded bg-surface-variant/50 px-1 py-0.5 font-mono text-[0.8em]">npm install</code></li>
+                        <li>
+                          Push to{" "}
+                          <a href="https://github.com/new" target="_blank" rel="noreferrer" className="underline hover:text-on-surface transition-colors">
+                            GitHub
+                          </a>
+                        </li>
+                        <li>
+                          Deploy on{" "}
+                          <a href="https://vercel.com/new" target="_blank" rel="noreferrer" className="underline hover:text-on-surface transition-colors">
+                            Vercel
+                          </a>
+                          {" / "}
+                          <a href="https://app.netlify.com/drop" target="_blank" rel="noreferrer" className="underline hover:text-on-surface transition-colors">
+                            Netlify
+                          </a>
+                          {" / "}
+                          <a href="https://dashboard.render.com/" target="_blank" rel="noreferrer" className="underline hover:text-on-surface transition-colors">
+                            Render
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
               </div>
             </aside>
 
