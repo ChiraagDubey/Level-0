@@ -228,6 +228,72 @@ function renderPreview(previewStyle: TemplateGalleryMetadata["previewStyle"]) {
           </div>
         </div>
       );
+    case "papertrail":
+      return (
+        <div className="relative h-[calc(100%-20px)] overflow-hidden border border-[#d8ccb8] bg-[linear-gradient(180deg,#f6efe3_0%,#efe5d6_100%)] p-3 text-[#2f2924]">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.78),transparent_36%)]" />
+          <div className="absolute right-4 top-3 h-8 w-8 rounded-full border border-[#ceb9a3]/70 opacity-40" />
+          <div className="absolute bottom-4 left-5 h-10 w-16 -rotate-6 rounded-[8px] border border-[#dacaa9]/70 bg-[#f0e1c2]/55" />
+          <div className="relative grid h-full grid-cols-[72px_1fr] gap-3">
+            <div className="relative rounded-[16px] border border-[#d8ccb8] bg-[#f7f1e8] p-2 shadow-[0_10px_18px_rgba(84,69,53,0.08)]">
+              <div className="absolute left-3 top-[-5px] h-3 w-3 rounded-full bg-[#b59a67] shadow-[0_5px_10px_rgba(117,95,58,0.25)]" />
+              <div className="flex h-10 w-10 items-center justify-center rounded-[10px] border border-[#caa992] bg-white font-serif text-sm text-[#8d5d4f]">
+                PT
+              </div>
+              <div className="mt-3 space-y-2">
+                <div className="h-7 rounded-[10px] bg-[#fffaf2]" />
+                <div className="h-7 rounded-[10px] bg-[#f0e6d8]" />
+                <div className="h-7 rounded-[10px] bg-[#fffaf2]" />
+                <div className="h-7 rounded-[10px] bg-[#f0e6d8]" />
+              </div>
+            </div>
+            <div className="grid gap-3">
+              <div className="relative rounded-[18px] border border-[#d8ccb8] bg-[#fbf7f0] p-3 shadow-[0_12px_20px_rgba(84,69,53,0.08)]">
+                <div className="absolute left-4 top-[-8px] h-4 w-14 rotate-[7deg] rounded-[3px] border border-[#ddcfaf]/70 bg-[#f7eed7]/85" />
+                <div className="absolute right-10 top-[-10px] h-9 w-5 rounded-[12px] border-2 border-[#86827b]/80" />
+                <div className="absolute right-[46px] top-[-4px] h-5 w-2.5 rounded-[8px] border-2 border-[#86827b]/75" />
+                <div className="absolute right-3 top-[-8px] rounded-[8px] border border-[#caa992] bg-[#f1ddd0] px-2 py-1 text-[8px] uppercase tracking-[0.18em] text-[#8d5d4f]">
+                  stamp
+                </div>
+                <div className="h-2.5 w-20 bg-[#8d5d4f]/25" />
+                <div className="mt-3 h-6 w-4/5 bg-[#2f2924]" />
+                <div className="mt-2 h-2.5 w-full bg-black/12" />
+                <div className="mt-2 h-2.5 w-3/4 bg-black/10" />
+                <div className="mt-2 h-[3px] w-24 rotate-[1deg] rounded-full bg-[#b8766d]/55" />
+                <div className="mt-4 flex gap-2">
+                  <div className="h-8 w-20 rounded-full bg-[#8d5d4f]" />
+                  <div className="h-8 w-20 rounded-full border border-[#d8ccb8] bg-white" />
+                </div>
+              </div>
+              <div className="grid flex-1 grid-cols-2 gap-3">
+                <div className="relative rounded-[18px] border border-[#d8ccb8] bg-[#fffaf2] p-3 shadow-[0_10px_18px_rgba(84,69,53,0.07)]">
+                  <div className="absolute right-3 top-[-8px] h-8 w-4 rounded-b-[8px] rounded-t-[4px] border border-[#8f8a83] bg-[#ece9e2]" />
+                  <div className="absolute left-4 top-[-8px] h-3 w-3 rounded-full bg-[#c4887e] shadow-[0_5px_10px_rgba(144,90,79,0.24)]" />
+                  <div className="mt-2 h-12 rounded-[12px] bg-[#e6dac6]" />
+                  <div className="mt-3 h-3 w-3/4 bg-[#2f2924]" />
+                  <div className="mt-2 h-2.5 w-full bg-black/10" />
+                  <div className="mt-2 h-2.5 w-4/5 bg-black/8" />
+                </div>
+                <div className="grid gap-3">
+                  <div className="relative rounded-[18px] border border-[#d8ccb8] bg-[#f2e7d7] p-3">
+                    <div className="absolute right-3 top-[-7px] h-3 w-12 -rotate-[8deg] rounded-[3px] border border-[#d2b4a2]/70 bg-[#efdccf]/82" />
+                    <div className="h-2 w-12 bg-[#6d7f66]/55" />
+                    <div className="mt-3 h-10 rounded-[10px] bg-white/80" />
+                  </div>
+                  <div className="rounded-[18px] border border-[#d8ccb8] bg-[#f3eadc] p-3">
+                    <div className="h-2 w-12 bg-[#495c78]/55" />
+                    <div className="mt-3 flex flex-wrap gap-2">
+                      <div className="h-5 w-12 rounded-[8px] border border-dashed border-[#d2c4af] bg-white/80" />
+                      <div className="h-5 w-14 rounded-[8px] border border-dashed border-[#d2c4af] bg-white/80" />
+                      <div className="h-5 w-10 rounded-[8px] border border-dashed border-[#d2c4af] bg-white/80" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      );
     default:
       return null;
   }
