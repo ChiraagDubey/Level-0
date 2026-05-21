@@ -65,7 +65,7 @@ export function Hero({
                 Export the code.
               </h1>
               <p className="max-w-2xl text-base leading-8 text-on-surface-variant md:text-lg">
-                LEVEL 0 is a portfolio builder for creators, beginners, and developers. Start from 7 finished
+                LEVEL 0 is a portfolio builder for creators, beginners, and developers. Start from {totalTemplates} finished
                 templates, edit visually, save your draft, and export a standalone ZIP project when you are ready.
               </p>
             </div>
