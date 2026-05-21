@@ -10,10 +10,6 @@ export function DeleteDraftButton({ portfolioId, draftTitle }: { portfolioId: st
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const handleDelete = async () => {
-    if (isDeleting) {
-      return;
-    }
-
     const confirmed = window.confirm(`Delete "${draftTitle}"? This will permanently remove the saved draft.`);
 
     if (!confirmed) {
