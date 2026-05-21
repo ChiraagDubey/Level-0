@@ -28,6 +28,11 @@ export interface HeroAsideSection {
   spotlightBody?: string;
   toolkitLabel?: string;
   toolkitBody?: string;
+  logoText?: string;
+  aboutDocument?: string;
+  aboutDocumentNote?: string;
+  funFactsTitle?: string;
+  funFacts?: string[];
 }
 
 export interface AboutSection {
@@ -100,6 +105,8 @@ export interface TemplateLabels {
   skillsLabel?: string;
   experienceLabel?: string;
   educationLabel?: string;
+  heroNote1?: string;
+  heroNote2?: string;
 }
 
 export interface PortfolioData {
