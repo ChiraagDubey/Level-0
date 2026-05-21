@@ -5,7 +5,8 @@ export type ExportTemplateId =
   | "light-vcard"
   | "blushfolio"
   | "developer-os"
-  | "arcade-neon";
+  | "arcade-neon"
+  | "papertrail";
 
 export interface ExportTemplateFiles {
   globalsCss: string;

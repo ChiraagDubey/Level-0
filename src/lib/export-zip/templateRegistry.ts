@@ -3,6 +3,7 @@ import { createBlushfolioGlobalsCss, createBlushfolioPortfolioTemplateFile } fro
 import { createDarkStarterGlobalsCss, createDarkStarterPortfolioTemplateFile } from "@/lib/export-zip/templates/darkStarter";
 import { createDeveloperOSGlobalsCss, createDeveloperOSPortfolioTemplateFile } from "@/lib/export-zip/templates/developerOS";
 import { createLightVCardGlobalsCss, createLightVCardPortfolioTemplateFile } from "@/lib/export-zip/templates/lightVCard";
+import { createPaperTrailGlobalsCss, createPaperTrailPortfolioTemplateFile } from "@/lib/export-zip/templates/papertrail";
 import { createProfileCardGlobalsCss, createProfileCardPortfolioTemplateFile } from "@/lib/export-zip/templates/profileCard";
 import { createSimpleStarterGlobalsCss, createSimpleStarterPortfolioTemplateFile } from "@/lib/export-zip/templates/simpleStarter";
 import type { ExportTemplateFiles, ExportTemplateId } from "@/lib/export-zip/types";
@@ -14,7 +15,8 @@ export function resolveExportTemplateId(templateId: string): ExportTemplateId {
     templateId === "light-vcard" ||
     templateId === "blushfolio" ||
     templateId === "developer-os" ||
-    templateId === "arcade-neon"
+    templateId === "arcade-neon" ||
+    templateId === "papertrail"
       ? templateId
       : "simple-starter"
   ) as ExportTemplateId;
@@ -32,6 +34,13 @@ export function createTemplateFiles(templateId: ExportTemplateId): ExportTemplat
     return {
       globalsCss: createDeveloperOSGlobalsCss(),
       portfolioTemplate: createDeveloperOSPortfolioTemplateFile(),
+    };
+  }
+
+  if (templateId === "papertrail") {
+    return {
+      globalsCss: createPaperTrailGlobalsCss(),
+      portfolioTemplate: createPaperTrailPortfolioTemplateFile(),
     };
   }
 
