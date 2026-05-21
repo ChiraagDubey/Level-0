@@ -1,4 +1,4 @@
-export type AccentColorName = "cyan" | "purple" | "orange" | "emerald" | "rose" | "monochrome";
+export type AccentColorName = "cyan" | "purple" | "orange" | "emerald" | "rose" | "monochrome" | "custom";
 
 export interface PortfolioTheme {
   accentColor: string;
