@@ -14,6 +14,9 @@ import { DeveloperOSTemplate } from "@/templates/developer-os/Template";
 import { defaultPortfolioData as lightVCardDefaultData } from "@/templates/light-vcard/defaultData";
 import { lightVCardMetadata } from "@/templates/light-vcard/metadata";
 import { LightVCardTemplate } from "@/templates/light-vcard/Template";
+import { defaultPortfolioData as paperTrailDefaultData } from "@/templates/papertrail/defaultData";
+import { paperTrailMetadata } from "@/templates/papertrail/metadata";
+import { PaperTrailTemplate } from "@/templates/papertrail/Template";
 import { defaultPortfolioData as profileCardDefaultData } from "@/templates/profile-card/defaultData";
 import { profileCardMetadata } from "@/templates/profile-card/metadata";
 import { ProfileCardTemplate } from "@/templates/profile-card/Template";
@@ -47,7 +50,8 @@ export type TemplatePreviewStyle =
   | "light-vcard"
   | "blushfolio"
   | "developer-os"
-  | "arcade-neon";
+  | "arcade-neon"
+  | "papertrail";
 
 export interface TemplateGalleryMetadata {
   theme: TemplateGalleryTheme;
@@ -143,6 +147,18 @@ export const TEMPLATE_REGISTRY: Record<string, TemplateDefinition> = {
     },
     defaultData: arcadeNeonDefaultData,
     TemplateComponent: ArcadeNeonTemplate,
+    exportSupported: true,
+  },
+  [paperTrailMetadata.id]: {
+    metadata: paperTrailMetadata,
+    gallery: {
+      theme: "light",
+      plan: "Free",
+      bestFor: "Editorial case-study portfolios",
+      previewStyle: "papertrail",
+    },
+    defaultData: paperTrailDefaultData,
+    TemplateComponent: PaperTrailTemplate,
     exportSupported: true,
   },
 };
