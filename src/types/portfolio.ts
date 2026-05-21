@@ -29,6 +29,7 @@ export interface HeroAsideSection {
   toolkitLabel?: string;
   toolkitBody?: string;
   logoText?: string;
+  sealText?: string;
   aboutDocument?: string;
   aboutDocumentNote?: string;
   funFactsTitle?: string;
