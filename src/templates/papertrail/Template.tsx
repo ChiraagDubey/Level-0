@@ -262,7 +262,7 @@ export function PaperTrailTemplate({ data, editable = false, onTextEdit, onImage
               </div>
               <div>
                 <p className="font-mono text-[10px] uppercase tracking-[0.24em] text-[#877768]">{heroAside.profileLabel || "Paper index"}</p>
-                <p className="mt-1 text-sm font-medium text-[#3b332d]">{data.name}</p>
+                <p className="mt-1 text-sm font-medium text-[#3b332d]">{renderText({ path: ["hero", "name"], value: data.hero?.name || "Your Name", as: "span" })}</p>
               </div>
             </div>
           </div>
@@ -292,7 +292,7 @@ export function PaperTrailTemplate({ data, editable = false, onTextEdit, onImage
               <PaperClip className="left-1/2 top-[-16px] -translate-x-1/2 rotate-[-5deg]" />
               <p className="text-xl font-bold text-[#6a5638]" style={handwritingStyle}>{heroAside.funFactsTitle}</p>
               <ul className="mt-2 space-y-1.5 text-base leading-tight text-[#6a5638]" style={handwritingStyle}>
-                {(Array.isArray(heroAside.funFacts) ? heroAside.funFacts : (typeof heroAside.funFacts === 'object' && heroAside.funFacts !== null ? Object.values(heroAside.funFacts) : [])).map((fact, index, arr) => {
+                {(Array.isArray(heroAside.funFacts) ? heroAside.funFacts : (typeof heroAside.funFacts === 'object' && heroAside.funFacts !== null ? Object.values(heroAside.funFacts) as string[] : [])).map((fact, index, arr) => {
                   const isLast = index === arr.length - 1;
                   if (isLast && fact === ":)") {
                     return (
